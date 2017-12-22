@@ -2,19 +2,19 @@ package ca.ftcalberta.rrlivescore.models;
 
 
 public class Glyph {
-    public enum GlyphColor { GRAY, BROWN }
+    public enum Color { GRAY, BROWN }
 
-    private GlyphColor color;
+    private Color color;
 
-    public Glyph(GlyphColor color) {
+    public Glyph(Color color) {
         this.color = color;
     }
 
-    public GlyphColor getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(GlyphColor color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 }
