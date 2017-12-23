@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="218dp"
+    android:layout_height="78dp">
+
+    <Button
+        android:id="@+id/zone_1"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_margin="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_zone"
+        android:text="@string/_1"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/zone_2"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/button_zone"
+        android:text="@string/_2"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/zone_1"
+        app:layout_constraintTop_toTopOf="@+id/zone_1" />
+
+    <Button
+        android:id="@+id/zone_3"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/button_zone"
+        android:text="@string/_3"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/zone_2"
+        app:layout_constraintTop_toTopOf="@+id/zone_2" />
+</android.support.constraint.ConstraintLayout>
