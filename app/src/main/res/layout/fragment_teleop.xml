@@ -6,16 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="82dp"
-            android:layout_height="58dp"
-            app:srcCompat="@drawable/glyph_button"
-            tools:layout_editor_absoluteX="261dp"
-            tools:layout_editor_absoluteY="401dp" />
-
     <include
         layout="@layout/layout_cryptobox"
         android:layout_width="match_parent"
@@ -29,5 +19,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <include
+        layout="@layout/layout_recovery_mat"
+        android:layout_width="218dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="388dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
