@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/rail_centre_right"
+        android:layout_width="10dp"
+        android:layout_height="fill_parent"
+        app:layout_constraintEnd_toStartOf="@+id/glyph22"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/glyph21"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/crytobox_rail" />
+
+    <ImageView
+        android:id="@+id/rail_right"
+        android:layout_width="10dp"
+        android:layout_height="fill_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/glyph22"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/crytobox_rail" />
+
+    <ImageView
+        android:id="@+id/rail_centre_left"
+        android:layout_width="10dp"
+        android:layout_height="fill_parent"
+        app:layout_constraintEnd_toStartOf="@+id/glyph21"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/glyph00"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/crytobox_rail" />
+
+    <ImageView
+        android:id="@+id/rail_left"
+        android:layout_width="10dp"
+        android:layout_height="fill_parent"
+        android:layout_marginStart="4dp"
+        app:layout_constraintEnd_toStartOf="@+id/glyph00"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/crytobox_rail" />
+
+    <Button
+        android:id="@+id/glyph22"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/glyph_button"
+        app:layout_constraintBottom_toTopOf="@+id/glyph12"
+        app:layout_constraintStart_toStartOf="@+id/glyph12"
+        app:layout_constraintTop_toBottomOf="@+id/glyph32"
+        app:layout_constraintVertical_bias="0.513" />
+
+    <Button
+        android:id="@+id/glyph32"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/glyph_button"
+        app:layout_constraintBottom_toTopOf="@+id/glyph22"
+        app:layout_constraintStart_toStartOf="@+id/glyph22"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/glyph12"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/glyph_button"
+        app:layout_constraintBottom_toTopOf="@+id/glyph02"
+        app:layout_constraintStart_toStartOf="@+id/glyph02"
+        app:layout_constraintTop_toBottomOf="@+id/glyph22"
+        app:layout_constraintVertical_bias="0.513" />
+
+    <Button
+        android:id="@+id/glyph02"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/glyph_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rail_right"
+        app:layout_constraintStart_toEndOf="@+id/rail_centre_right"
+        app:layout_constraintTop_toBottomOf="@+id/glyph12"
+        app:layout_constraintVertical_bias="0.394" />
+
+    <Button
+        android:id="@+id/glyph21"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/glyph_button"
+        app:layout_constraintBottom_toTopOf="@+id/glyph11"
+        app:layout_constraintStart_toStartOf="@+id/glyph11"
+        app:layout_constraintTop_toBottomOf="@+id/glyph31" />
+
+    <Button
+        android:id="@+id/glyph31"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/glyph_button"
+        app:layout_constraintBottom_toTopOf="@+id/glyph21"
+        app:layout_constraintStart_toStartOf="@+id/glyph21"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/glyph11"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/glyph_button"
+        app:layout_constraintBottom_toTopOf="@+id/glyph01"
+        app:layout_constraintStart_toStartOf="@+id/glyph01"
+        app:layout_constraintTop_toBottomOf="@+id/glyph21" />
+
+    <Button
+        android:id="@+id/glyph01"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/glyph_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rail_centre_right"
+        app:layout_constraintStart_toEndOf="@+id/rail_centre_left"
+        app:layout_constraintTop_toBottomOf="@+id/glyph11" />
+
+    <Button
+        android:id="@+id/glyph00"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/glyph_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rail_centre_left"
+        app:layout_constraintStart_toEndOf="@+id/rail_left"
+        app:layout_constraintTop_toBottomOf="@+id/glyph10" />
+
+    <Button
+        android:id="@+id/glyph10"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/glyph_button"
+        app:layout_constraintBottom_toTopOf="@+id/glyph00"
+        app:layout_constraintStart_toStartOf="@+id/glyph00"
+        app:layout_constraintTop_toBottomOf="@+id/glyph20" />
+
+    <Button
+        android:id="@+id/glyph30"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/glyph_button"
+        app:layout_constraintBottom_toTopOf="@+id/glyph20"
+        app:layout_constraintStart_toStartOf="@+id/glyph20"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/glyph20"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/glyph_button"
+        app:layout_constraintBottom_toTopOf="@+id/glyph10"
+        app:layout_constraintStart_toStartOf="@+id/glyph10"
+        app:layout_constraintTop_toBottomOf="@+id/glyph30" />
+
+</android.support.constraint.ConstraintLayout>
