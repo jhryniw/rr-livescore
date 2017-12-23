@@ -22,6 +22,7 @@ public class RelicTest {
     public void testZone1() throws Exception {
         relic.setZone(1);
         relic.setUpright(false);
+
         assertEquals(10, relic.getScore());
     }
 
@@ -29,6 +30,7 @@ public class RelicTest {
     public void testZone2() throws Exception {
         relic.setZone(2);
         relic.setUpright(false);
+
         assertEquals(20, relic.getScore());
     }
 
@@ -36,6 +38,7 @@ public class RelicTest {
     public void testZone3() throws Exception {
         relic.setZone(3);
         relic.setUpright(false);
+
         assertEquals(40, relic.getScore());
     }
 
