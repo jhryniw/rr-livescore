@@ -5,15 +5,15 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.ViewGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ScoringActivity extends FragmentActivity
-    implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class ScoringActivity extends FragmentActivity implements
+        BottomNavigationView.OnNavigationItemSelectedListener,
+        ViewPager.OnPageChangeListener {
 
     @BindView(R.id.fragment_container)
     ViewPager viewPager;
@@ -34,20 +34,48 @@ public class ScoringActivity extends FragmentActivity
         adapter.addFragment(new TeleopFragment(), "Teleop");
 
         viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(this);
 
         navigation.setOnNavigationItemSelectedListener(this);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.navigation_autonomous:
-                viewPager.setCurrentItem(0);
+                if (viewPager.getCurrentItem() != 0) {
+                    viewPager.setCurrentItem(0);
+                }
                 return true;
             case R.id.navigation_teleop:
-                viewPager.setCurrentItem(1);
+                if (viewPager.getCurrentItem() != 1) {
+                    viewPager.setCurrentItem(1);
+                }
                 return true;
         }
         return false;
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        switch (position) {
+            case 0:
+                navigation.setSelectedItemId(R.id.navigation_autonomous);
+                break;
+            case 1:
+                navigation.setSelectedItemId(R.id.navigation_teleop);
+                break;
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }
