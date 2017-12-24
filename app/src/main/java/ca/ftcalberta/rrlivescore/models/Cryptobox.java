@@ -7,12 +7,16 @@ public class Cryptobox {
     public final static int ROWS = 4;
     public final static int COLS = 3;
 
-    private Alliance alliance;
-    private int keyColumn = -1;
-    private Glyph[][] box = new Glyph[ROWS][COLS];
+    protected Alliance alliance;
+    protected int keyColumn = -1;
+    protected Glyph[][] box = new Glyph[ROWS][COLS];
 
     public Cryptobox(Alliance alliance) {
         this.alliance = alliance;
+
+        for (int i = 0; i < ROWS; i++) {
+            box[i] = new Glyph[COLS];
+        }
     }
 
     public Cryptobox(Alliance alliance, int keyColumn, Glyph[][] box) {
@@ -33,12 +37,32 @@ public class Cryptobox {
         this.keyColumn = keyColumn;
     }
 
-    public void addGlyph(int row, int col, Glyph.Color color) {
+    public void toggleGlyph(int row, int col) {
+        Glyph currentGlyph = getGlyph(row, col);
 
+        if (currentGlyph != null) {
+            if (currentGlyph.getColor() == Glyph.Color.GRAY) {
+                addGlyph(row, col, Glyph.Color.BROWN);
+            }
+            else {
+                addGlyph(row, col, Glyph.Color.GRAY);
+            }
+        }
+        else {
+            addGlyph(row, col, Glyph.Color.GRAY);
+        }
+    }
+
+    public void addGlyph(int row, int col, Glyph.Color color) {
+        box[row][col] = new Glyph(color);
     }
 
     public void removeGlyph(int row, int col) {
+        box[row][col] = null;
+    }
 
+    public Glyph getGlyph(int row, int col) {
+        return box[row][col];
     }
 
     public int getGlyphCount() {
