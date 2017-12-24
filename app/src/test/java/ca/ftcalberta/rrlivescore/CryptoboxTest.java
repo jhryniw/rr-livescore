@@ -148,7 +148,7 @@ public class CryptoboxTest {
 
     private void oneCipherTest(Glyph[][] cipher) {
         // There is a singular teleop score for full cipher boxes
-        int fullCipherScore = 144;
+        int fullCipherScore = 154;
 
         Cryptobox cipherBox = new Cryptobox(Alliance.BLUE, 0, cipher);
         assertEquals(true, cipherBox.cipherComplete());

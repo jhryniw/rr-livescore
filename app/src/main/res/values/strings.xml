@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Relic Recovery Livescoring</string>
+    <string name="copyright">© 2018 FTC Alberta. All Rights Reserved.</string>
+
     <string name="title_autonomous">Autonomous</string>
     <string name="title_teleop">Teleop</string>
 
