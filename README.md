@@ -1,6 +1,6 @@
 <img
     src="/app/src/main/res/drawable/logo.png"
-    width="144"
+    width="160"
     height="120"
     title="Logo"
     align="right"
