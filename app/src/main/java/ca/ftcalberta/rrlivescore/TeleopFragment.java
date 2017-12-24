@@ -1,17 +1,32 @@
 package ca.ftcalberta.rrlivescore;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-public class TeleopFragment extends Fragment {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import ca.ftcalberta.rrlivescore.data.SyncedCryptobox;
+import ca.ftcalberta.rrlivescore.models.Alliance;
+import ca.ftcalberta.rrlivescore.models.Cryptobox;
+import ca.ftcalberta.rrlivescore.models.Glyph;
+
+public class TeleopFragment extends Fragment
+    implements View.OnClickListener {
+
+    private Cryptobox mCryptobox;
+
+    @BindView(R.id.glyph00)
+    Button btnGlyph00;
 
     public TeleopFragment() {
-
+        this.mCryptobox = new SyncedCryptobox(Alliance.BLUE, 1);
     }
 
     @Override
@@ -26,6 +41,28 @@ public class TeleopFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_teleop, container, false);
+        View view = inflater.inflate(R.layout.fragment_teleop, container, false);
+
+        ButterKnife.bind(this, view);
+        btnGlyph00.setOnClickListener(this);
+
+        return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.glyph00:
+                mCryptobox.toggleGlyph(0, 0);
+
+                Glyph glyph = mCryptobox.getGlyph(0, 0);
+
+                if (glyph != null) {
+                    btnGlyph00.setBackgroundColor(glyph.getColor().toColor());
+                }
+                else {
+                    btnGlyph00.setBackgroundColor(Color.WHITE);
+                }
+        }
     }
 }

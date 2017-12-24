@@ -19,11 +19,11 @@ public abstract class DataSource extends Observable
     }
 
     public void open() {
-        mQuery = getQuery(mDatabase);
+        mQuery = getQuery();
         mQuery.addValueEventListener(this);
     }
 
-    abstract Query getQuery(DatabaseReference databaseReference);
+    abstract Query getQuery();
 
     public void close() {
         mQuery.removeEventListener(this);
