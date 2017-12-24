@@ -1,11 +1,11 @@
 <img
-    src="https://www.ftcalberta.ca/images/news/2017/FIRST-FTC-RelicRecovery17-18-Color.png"
+    src="/app/src/main/res/drawable/logo.png"
     width="144"
     height="120"
     title="Logo"
     align="right"
     alt="Relic Recovery Logo"/>
 
-# FTC Relic Recovery
+# FTC Relic Recovery Livescoring
 
 An android application to track scores for the Relic Recovery game.
