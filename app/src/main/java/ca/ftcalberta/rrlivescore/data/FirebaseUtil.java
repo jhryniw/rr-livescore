@@ -6,8 +6,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class FirebaseUtil {
 
-    public static DatabaseReference getCurrentMatchReference() {
-        return FirebaseDatabase.getInstance().getReference("current-match");
+    private static FirebaseDatabase getDatabase() {
+        return FirebaseDatabase.getInstance();
     }
 
+    public static DatabaseReference getCurrentMatchReference() {
+        return getDatabase().getReference("current-match");
+    }
 }
