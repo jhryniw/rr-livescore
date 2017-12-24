@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/blue_jewel"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/blue_jewel"
+        android:src="@drawable/jewel_blue" />
+
+    <ImageButton
+        android:id="@+id/red_jewel"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/red_jewel"
+        android:src="@drawable/jewel_red"
+        app:layout_constraintEnd_toEndOf="@+id/jewel_base"
+        app:layout_constraintStart_toEndOf="@+id/blue_jewel"
+        app:layout_constraintTop_toTopOf="@+id/blue_jewel" />
+
+    <ImageView
+        android:id="@+id/jewel_base"
+        android:layout_width="140dp"
+        android:layout_height="8dp"
+        android:src="@drawable/jewel_set_base"
+        app:layout_constraintStart_toStartOf="@+id/blue_jewel"
+        android:contentDescription="@string/jewel_base"
+        app:layout_constraintTop_toBottomOf="@+id/blue_jewel" />
+</android.support.constraint.ConstraintLayout>

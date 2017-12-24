@@ -8,4 +8,7 @@
     <string name="_3">3</string>
 
     <string name="rail_description">cryptobox rail</string>
+    <string name="red_jewel">Red Jewel</string>
+    <string name="jewel_base">Jewel Base</string>
+    <string name="blue_jewel">Blue Jewel</string>
 </resources>
