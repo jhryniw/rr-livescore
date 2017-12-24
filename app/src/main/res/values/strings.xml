@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Relic Recovery Livescoring</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_autonomous">Autonomous</string>
+    <string name="title_teleop">Teleop</string>
+
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
 
     <string name="rail_description">cryptobox rail</string>
 </resources>

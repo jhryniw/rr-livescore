@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "823219110305",
+    "firebase_url": "https://rr-livescore.firebaseio.com",
+    "project_id": "rr-livescore",
+    "storage_bucket": "rr-livescore.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823219110305:android:792e7bfa27e80e03",
+        "android_client_info": {
+          "package_name": "ca.ftcalberta.rrlivescore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "823219110305-imlhaa4jo5prg2uohs5kp8fl0330c4lm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.ftcalberta.rrlivescore",
+            "certificate_hash": "c251dd64705bf8639002ad09f7808a75e46edbe8"
+          }
+        },
+        {
+          "client_id": "823219110305-itur0j826osprdetb6qfp88slocmgsak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChka_mOP9JM7x3kwk3KYN72AJOcDp6cSw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "823219110305-itur0j826osprdetb6qfp88slocmgsak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
