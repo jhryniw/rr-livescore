@@ -2,6 +2,7 @@ package ca.ftcalberta.rrlivescore.models;
 
 
 public enum Alliance {
+
     RED,
     BLUE,
     NONE;
