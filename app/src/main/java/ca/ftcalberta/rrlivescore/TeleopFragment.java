@@ -109,7 +109,14 @@ public class TeleopFragment extends Fragment implements
             mCryptobox.toggleGlyph(row, col);
 
             Glyph glyph = mCryptobox.getGlyph(row, col);
-            view.setBackgroundColor(glyph.getColor().toColor());
+            if (glyph.getColor() == Glyph.Color.BROWN) {
+                int color = getResources().getColor(R.color.glyphBrown);
+                view.setBackgroundColor(color);
+            }
+            else {
+                int color = getResources().getColor(R.color.glyphGray);
+                view.setBackgroundColor(color);
+            }
         }
     }
 

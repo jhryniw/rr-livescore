@@ -91,21 +91,28 @@ public class CryptoboxTest {
     }
 
     @Test
-    public void testKeyColumn() throws Exception {
-        Glyph[][] simpleBox = new Glyph[Cryptobox.ROWS][Cryptobox.COLS];
-        simpleBox[3] = new Glyph[]{null,       null, null};
-        simpleBox[2] = new Glyph[]{null,       null, null};
-        simpleBox[1] = new Glyph[]{brownGlyph, null, null};
-        simpleBox[0] = new Glyph[]{grayGlyph,  null, null};
-
-        cryptobox.setBox(simpleBox);
-
+    public void testKeyColumnFirst() throws Exception {
+        // Start from an empty box
+        cryptobox = new Cryptobox(Alliance.BLUE);
         cryptobox.setKeyColumn(1);
-        int initialScore = cryptobox.getAutonomousScore();
 
-        // Test the increment
-        cryptobox.setKeyColumn(0);
-        assertEquals(initialScore + 30, cryptobox.getAutonomousScore());
+        cryptobox.addGlyph(0, 1, Glyph.Color.GRAY);
+
+        // key column + glyph score
+        assertEquals(45, cryptobox.getAutonomousScore());
+    }
+
+    @Test
+    public void testKeyColumnSecond() throws Exception {
+        // Start from an empty box
+        cryptobox = new Cryptobox(Alliance.BLUE);
+        cryptobox.setKeyColumn(1);
+
+        cryptobox.addGlyph(0, 0, Glyph.Color.BROWN);
+        cryptobox.addGlyph(0, 0, Glyph.Color.GRAY);
+
+        // No key column score, only points for glyphs
+        assertEquals(30, cryptobox.getAutonomousScore());
     }
 
     @Test

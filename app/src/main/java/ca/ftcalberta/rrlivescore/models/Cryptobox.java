@@ -7,9 +7,9 @@ public class Cryptobox {
     public final static int ROWS = 4;
     public final static int COLS = 3;
 
-    protected Alliance alliance;
-    protected int keyColumn = -1;
-    protected Glyph[][] box = new Glyph[ROWS][COLS];
+    private Alliance alliance;
+    private int keyColumn = -1;
+    private Glyph[][] box = new Glyph[ROWS][COLS];
 
     public Cryptobox(Alliance alliance) {
         this.alliance = alliance;
@@ -79,6 +79,10 @@ public class Cryptobox {
 
     public boolean cipherComplete() {
         return false;
+    }
+
+    protected void updateScore() {
+
     }
 
     public int getAutonomousScore() {

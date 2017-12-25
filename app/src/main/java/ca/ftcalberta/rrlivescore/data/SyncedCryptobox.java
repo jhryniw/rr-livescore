@@ -45,7 +45,7 @@ public class SyncedCryptobox extends Cryptobox {
     }
 
     private DatabaseReference getRootRef() {
-        String strAlliance = alliance.toString().toLowerCase();
+        String strAlliance = getAlliance().toString().toLowerCase();
         String root = String.format(Locale.CANADA, "cryptobox-%s-%d", strAlliance, cryptoboxId);
 
         return FirebaseUtil.getCurrentMatchReference().child(root);
