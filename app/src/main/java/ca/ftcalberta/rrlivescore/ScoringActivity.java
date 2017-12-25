@@ -1,17 +1,23 @@
 package ca.ftcalberta.rrlivescore;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
+import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
+import android.view.Window;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ca.ftcalberta.rrlivescore.models.CurrentUser;
 
-public class ScoringActivity extends FragmentActivity implements
+public class ScoringActivity extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener,
         ViewPager.OnPageChangeListener {
 
@@ -27,11 +33,16 @@ public class ScoringActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoring);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.scoring_toolbar);
+        setSupportActionBar(myToolbar);
+
         ButterKnife.bind(this);
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new AutonomousFragment(), "Autonomous");
         adapter.addFragment(new TeleopFragment(), "Teleop");
+        setTitle("Autonomous");
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(this);
@@ -67,9 +78,11 @@ public class ScoringActivity extends FragmentActivity implements
         switch (position) {
             case 0:
                 navigation.setSelectedItemId(R.id.navigation_autonomous);
+                setTitle(adapter.getPageTitle(0));
                 break;
             case 1:
                 navigation.setSelectedItemId(R.id.navigation_teleop);
+                setTitle(adapter.getPageTitle(1));
                 break;
         }
     }
@@ -77,5 +90,29 @@ public class ScoringActivity extends FragmentActivity implements
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.scoring_appbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
+                return true;
+            case R.id.action_logout:
+                CurrentUser.signOut();
+                Intent backToLogin = new Intent(this, LoginActivity.class);
+                startActivity(backToLogin);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">@color/blue800</color>
+    <color name="colorPrimaryDark">@color/blue800Dark</color>
+    <color name="colorAccent">@color/gray600</color>
 
-    <color name="recoveryMatOrange">#ffffbb</color>
+    <color name="colorTextPrimary">@android:color/white</color>
+
+    <!-- Blue 800 Material Theme -->
+    <color name="blue800">#1565c0</color>
+    <color name="blue800Dark">#003c8f</color>
+    <color name="blue800Light">#5e92f3</color>
+
+    <!-- Red 800 Material Theme -->
+    <color name="red800">#c62828</color>
+    <color name="red800Dark">#8e0000</color>
+    <color name="red800Light">#ff5f52</color>
+
+    <!-- Gray 600 Material Theme -->
+    <color name="gray600">#757575</color>
+    <color name="gray600Dark">#494949</color>
+    <color name="gray600Light">#a4a4a4</color>
+
+    <color name="glyphGray">@color/gray600Light</color>
+    <color name="glyphBrown">#996060</color>
+    <color name="glyphNone">@android:color/white</color>
+
+    <color name="relicYellow">#e5d737</color>
 </resources>
