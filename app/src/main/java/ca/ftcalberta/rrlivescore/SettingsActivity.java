@@ -1,22 +1,43 @@
 package ca.ftcalberta.rrlivescore;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import ca.ftcalberta.rrlivescore.models.Alliance;
 import ca.ftcalberta.rrlivescore.models.CurrentUser;
+import ca.ftcalberta.rrlivescore.models.Settings;
 
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity
+    implements RadioGroup.OnCheckedChangeListener {
+
+    @BindView(R.id.radio_blue_alliance)
+    RadioButton radioBlueAlliance;
+    @BindView(R.id.radio_red_alliance)
+    RadioButton radioRedAlliance;
+
+    @BindView(R.id.radio_front)
+    RadioButton radioFrontCryptobox;
+    @BindView(R.id.radio_back)
+    RadioButton radioBackCryptobox;
+
+    private Settings appSettings;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        ButterKnife.bind(this);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.settings_toolbar);
         setSupportActionBar(myToolbar);
@@ -24,6 +45,46 @@ public class SettingsActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        RadioGroup allianceSelector = (RadioGroup) findViewById(R.id.alliance_selector);
+        RadioGroup cryptoboxIdSelector = (RadioGroup) findViewById(R.id.cryptobox_selector);
+
+        appSettings = Settings.getInstance(this);
+
+        if (appSettings.getAlliance() == Alliance.RED) {
+            radioRedAlliance.setChecked(true);
+        }
+        else {
+            radioBlueAlliance.setChecked(true);
+        }
+
+        if (appSettings.getCryptoboxId() == Settings.CRYPTOBOX_BACK) {
+            radioBackCryptobox.setChecked(true);
+        }
+        else {
+            radioFrontCryptobox.setChecked(true);
+        }
+
+        allianceSelector.setOnCheckedChangeListener(this);
+        cryptoboxIdSelector.setOnCheckedChangeListener(this);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+        switch (checkedId) {
+            case R.id.radio_blue_alliance:
+                appSettings.setAlliance(this, Alliance.BLUE);
+                break;
+            case R.id.radio_red_alliance:
+                appSettings.setAlliance(this, Alliance.RED);
+                break;
+            case R.id.radio_front:
+                appSettings.setCryptoboxId(this, Settings.CRYPTOBOX_FRONT);
+                break;
+            case R.id.radio_back:
+                appSettings.setCryptoboxId(this, Settings.CRYPTOBOX_BACK);
+                break;
         }
     }
 
