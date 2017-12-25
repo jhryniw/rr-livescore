@@ -4,7 +4,7 @@
     <item>
         <shape>
             <solid
-                android:color="@color/colorPrimaryDark"
+                android:color="?colorPrimaryDark"
                 />
         </shape>
     </item>
@@ -13,7 +13,7 @@
         android:gravity="right">
         <shape>
             <solid
-                android:color="@color/colorPrimary"
+                android:color="?colorPrimary"
                 />
         </shape>
     </item>

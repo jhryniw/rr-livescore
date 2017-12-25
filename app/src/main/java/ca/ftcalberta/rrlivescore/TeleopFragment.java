@@ -16,6 +16,7 @@ import ca.ftcalberta.rrlivescore.data.SyncedCryptobox;
 import ca.ftcalberta.rrlivescore.models.Alliance;
 import ca.ftcalberta.rrlivescore.models.Cryptobox;
 import ca.ftcalberta.rrlivescore.models.Glyph;
+import ca.ftcalberta.rrlivescore.models.Settings;
 
 public class TeleopFragment extends Fragment
     implements View.OnClickListener {
@@ -26,7 +27,7 @@ public class TeleopFragment extends Fragment
     Button btnGlyph00;
 
     public TeleopFragment() {
-        this.mCryptobox = new SyncedCryptobox(Alliance.BLUE, 1);
+
     }
 
     @Override
@@ -42,6 +43,9 @@ public class TeleopFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_teleop, container, false);
+
+        Settings appSettings = Settings.getInstance();
+        this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), appSettings.getCryptoboxId());
 
         ButterKnife.bind(this, view);
         btnGlyph00.setOnClickListener(this);

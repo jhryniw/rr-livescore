@@ -54,7 +54,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
-            android:checked="true"
             android:text="@string/blue_alliance"
             android:textSize="16sp"
             app:buttonTint="@color/blue800Dark" />
@@ -108,7 +107,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
-            android:checked="true"
             android:text="@string/cryptobox_front"
             android:textSize="16sp"
             app:buttonTint="@color/gray600Dark" />
