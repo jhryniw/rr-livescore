@@ -22,6 +22,7 @@ import ca.ftcalberta.rrlivescore.models.Alliance;
 import ca.ftcalberta.rrlivescore.models.Cryptobox;
 import ca.ftcalberta.rrlivescore.models.Glyph;
 import ca.ftcalberta.rrlivescore.models.Relic;
+import ca.ftcalberta.rrlivescore.models.OpMode;
 import ca.ftcalberta.rrlivescore.models.Settings;
 
 public class TeleopFragment extends Fragment implements
@@ -52,11 +53,6 @@ public class TeleopFragment extends Fragment implements
     Pattern glyphPattern = Pattern.compile("^glyph(\\d)(\\d)$");
     Pattern zonePattern = Pattern.compile("^zone_(\\d)$");
 
-
-    public TeleopFragment() {
-
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +68,7 @@ public class TeleopFragment extends Fragment implements
         View view = inflater.inflate(R.layout.fragment_teleop, container, false);
 
         Settings appSettings = Settings.getInstance();
-        this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), appSettings.getCryptoboxId());
+        this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.TELEOP, appSettings.getCryptoboxId());
         this.mRelic = new Relic(appSettings.getAlliance());
 
         ButterKnife.bind(this, view);
@@ -124,8 +120,16 @@ public class TeleopFragment extends Fragment implements
             mCryptobox.toggleGlyph(row, col);
 
             Glyph glyph = mCryptobox.getGlyph(row, col);
-            view.setBackgroundColor(glyph.getColor().toColor());
-        } else if(zoneMatcher.matches()){
+            if (glyph.getColor() == Glyph.Color.BROWN) {
+                int color = getResources().getColor(R.color.glyphBrown);
+                view.setBackgroundColor(color);
+            }
+            else {
+                int color = getResources().getColor(R.color.glyphGray);
+                view.setBackgroundColor(color);
+            }
+        }
+        else if(zoneMatcher.matches()){
             int zone = Integer.parseInt(zoneMatcher.group(1));
             boolean isUpright = mRelic.isUpright();
 
