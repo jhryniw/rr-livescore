@@ -43,7 +43,7 @@
         android:id="@+id/alliance_selector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
         app:layout_constraintLeft_toLeftOf="@+id/alliance_header"
         app:layout_constraintTop_toBottomOf="@+id/alliance_header">
@@ -55,7 +55,7 @@
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:checked="true"
-            android:text="Blue Alliance"
+            android:text="@string/blue_alliance"
             android:textSize="16sp"
             app:buttonTint="@color/blue800Dark" />
 
@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Red Alliance"
+            android:text="@string/red_alliance"
             android:textSize="16sp"
             app:buttonTint="@color/red800Dark" />
     </RadioGroup>
@@ -96,7 +96,7 @@
         android:id="@+id/cryptobox_selector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="16dp"
         android:layout_weight="1"
         app:layout_constraintLeft_toLeftOf="@+id/cryptobox_header"
@@ -109,7 +109,7 @@
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
             android:checked="true"
-            android:text="Front"
+            android:text="@string/cryptobox_front"
             android:textSize="16sp"
             app:buttonTint="@color/gray600Dark" />
 
@@ -118,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Back"
+            android:text="@string/cryptobox_back"
             android:textSize="16sp"
             app:buttonTint="@color/gray600Dark" />
     </RadioGroup>

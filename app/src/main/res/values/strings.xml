@@ -20,4 +20,8 @@
 
     <string name="alliance_selection">ALLIANCE SELECTION</string>
     <string name="cryptobox_id">CRYPTOBOX ID</string>
+    <string name="blue_alliance">Blue Alliance</string>
+    <string name="red_alliance">Red Alliance</string>
+    <string name="cryptobox_front">Front</string>
+    <string name="cryptobox_back">Back</string>
 </resources>
