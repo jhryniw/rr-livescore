@@ -13,4 +13,9 @@
     <string name="red_jewel">Red Jewel</string>
     <string name="jewel_base">Jewel Base</string>
     <string name="blue_jewel">Blue Jewel</string>
+    <string name="balance_button">balance button</string>
+    <string name="safe_zone_button">safe zone button</string>
+    <string name="key_2">key 2</string>
+    <string name="key_1">key 1</string>
+    <string name="key_0">key 0</string>
 </resources>
