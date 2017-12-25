@@ -1,5 +1,6 @@
 package ca.ftcalberta.rrlivescore;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ca.ftcalberta.rrlivescore.models.CurrentUser;
 
 public class ScoringActivity extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener,
@@ -96,7 +98,12 @@ public class ScoringActivity extends AppCompatActivity implements
             case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
-
+            case R.id.action_logout:
+                CurrentUser.signOut();
+                Intent backToLogin = new Intent(this, LoginActivity.class);
+                startActivity(backToLogin);
+                finish();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
