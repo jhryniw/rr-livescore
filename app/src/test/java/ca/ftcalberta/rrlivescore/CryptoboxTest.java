@@ -48,7 +48,7 @@ public class CryptoboxTest {
         assertEquals(3, cryptobox.getGlyphCount());
 
         // Test the increment
-        assertEquals(initialScore + 15, cryptobox.getTeleopScore());
+        assertEquals(initialScore + 15, cryptobox.getAutonomousScore());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class CryptoboxTest {
 
     @Test
     public void testNoCipher() throws Exception {
-        assertEquals(false, cryptobox.cipherComplete());
+        assertEquals(false, cryptobox.isCipherComplete());
     }
 
     @Test
@@ -158,11 +158,11 @@ public class CryptoboxTest {
         int fullCipherScore = 154;
 
         Cryptobox cipherBox = new Cryptobox(Alliance.BLUE, 0, cipher);
-        assertEquals(true, cipherBox.cipherComplete());
+        assertEquals(true, cipherBox.isCipherComplete());
         assertEquals(fullCipherScore, cipherBox.getTeleopScore());
 
         Cryptobox swappedCipherBox = cipherBox.swapGlyphColors();
-        assertEquals(true, swappedCipherBox.cipherComplete());
+        assertEquals(true, swappedCipherBox.isCipherComplete());
         assertEquals(fullCipherScore, swappedCipherBox.getTeleopScore());
     }
 }
