@@ -36,6 +36,15 @@ public class SettingsActivity extends AppCompatActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Alliance alliance = Settings.getInstance().getAlliance();
+        if (alliance == Alliance.RED) {
+            setTheme(R.style.AppTheme_Red);
+        }
+        else {
+            setTheme(R.style.AppTheme_Blue);
+        }
+
         setContentView(R.layout.activity_settings);
         ButterKnife.bind(this);
 
@@ -52,17 +61,19 @@ public class SettingsActivity extends AppCompatActivity
 
         appSettings = Settings.getInstance(this);
 
-        if (appSettings.getAlliance() == Alliance.RED) {
+        if (appSettings.getAlliance() == Alliance.RED &&
+                !radioRedAlliance.isChecked()) {
             radioRedAlliance.setChecked(true);
         }
-        else {
+        else if (!radioBlueAlliance.isChecked()){
             radioBlueAlliance.setChecked(true);
         }
 
-        if (appSettings.getCryptoboxId() == Settings.CRYPTOBOX_BACK) {
+        if (appSettings.getCryptoboxId() == Settings.CRYPTOBOX_BACK
+                && !radioBackCryptobox.isChecked()) {
             radioBackCryptobox.setChecked(true);
         }
-        else {
+        else if (!radioFrontCryptobox.isChecked()){
             radioFrontCryptobox.setChecked(true);
         }
 
@@ -75,9 +86,11 @@ public class SettingsActivity extends AppCompatActivity
         switch (checkedId) {
             case R.id.radio_blue_alliance:
                 appSettings.setAlliance(this, Alliance.BLUE);
+                recreate();
                 break;
             case R.id.radio_red_alliance:
                 appSettings.setAlliance(this, Alliance.RED);
+                recreate();
                 break;
             case R.id.radio_front:
                 appSettings.setCryptoboxId(this, Settings.CRYPTOBOX_FRONT);

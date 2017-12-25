@@ -15,7 +15,9 @@ import android.view.Window;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ca.ftcalberta.rrlivescore.models.Alliance;
 import ca.ftcalberta.rrlivescore.models.CurrentUser;
+import ca.ftcalberta.rrlivescore.models.Settings;
 
 public class ScoringActivity extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener,
@@ -29,9 +31,20 @@ public class ScoringActivity extends AppCompatActivity implements
 
     ViewPagerAdapter adapter;
 
+    private Alliance alliance;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        alliance = Settings.getInstance().getAlliance();
+        if (alliance == Alliance.RED) {
+            setTheme(R.style.AppTheme_Red);
+        }
+        else {
+            setTheme(R.style.AppTheme_Blue);
+        }
+
         setContentView(R.layout.activity_scoring);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.scoring_toolbar);
@@ -48,6 +61,17 @@ public class ScoringActivity extends AppCompatActivity implements
         viewPager.addOnPageChangeListener(this);
 
         navigation.setOnNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Alliance currentAlliance = Settings.getInstance().getAlliance();
+        if (currentAlliance != alliance) {
+            alliance = currentAlliance;
+            recreate();
+        }
     }
 
     @Override
