@@ -3,15 +3,16 @@ package ca.ftcalberta.rrlivescore;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ScoringActivity extends FragmentActivity implements
+public class ScoringActivity extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener,
         ViewPager.OnPageChangeListener {
 
@@ -27,6 +28,10 @@ public class ScoringActivity extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoring);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.scoring_toolbar);
+        setSupportActionBar(myToolbar);
+
         ButterKnife.bind(this);
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -77,5 +82,23 @@ public class ScoringActivity extends FragmentActivity implements
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.scoring_appbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // User chose the "Settings" item, show the app settings UI...
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
