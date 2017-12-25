@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -56,6 +55,7 @@
 
     <Button
         android:id="@+id/glyph22"
+        android:tag="@string/glyph22"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/glyph_button"
@@ -66,6 +66,7 @@
 
     <Button
         android:id="@+id/glyph32"
+        android:tag="@string/glyph32"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/glyph_button"
@@ -75,6 +76,7 @@
 
     <Button
         android:id="@+id/glyph12"
+        android:tag="@string/glyph12"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/glyph_button"
@@ -85,6 +87,7 @@
 
     <Button
         android:id="@+id/glyph02"
+        android:tag="@string/glyph02"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginEnd="8dp"
@@ -98,6 +101,7 @@
 
     <Button
         android:id="@+id/glyph21"
+        android:tag="@string/glyph21"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/glyph_button"
@@ -107,6 +111,7 @@
 
     <Button
         android:id="@+id/glyph31"
+        android:tag="@string/glyph31"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/glyph_button"
@@ -116,6 +121,7 @@
 
     <Button
         android:id="@+id/glyph11"
+        android:tag="@string/glyph11"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/glyph_button"
@@ -125,6 +131,7 @@
 
     <Button
         android:id="@+id/glyph01"
+        android:tag="@string/glyph01"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginEnd="8dp"
@@ -137,6 +144,7 @@
 
     <Button
         android:id="@+id/glyph00"
+        android:tag="@string/glyph00"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginEnd="8dp"
@@ -149,6 +157,7 @@
 
     <Button
         android:id="@+id/glyph10"
+        android:tag="@string/glyph10"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/glyph_button"
@@ -158,6 +167,7 @@
 
     <Button
         android:id="@+id/glyph30"
+        android:tag="@string/glyph30"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/glyph_button"
@@ -167,6 +177,7 @@
 
     <Button
         android:id="@+id/glyph20"
+        android:tag="@string/glyph20"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/glyph_button"

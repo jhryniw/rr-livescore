@@ -29,4 +29,16 @@
     <string name="red_alliance">Red Alliance</string>
     <string name="cryptobox_front">Front</string>
     <string name="cryptobox_back">Back</string>
+    <string name="glyph22">glyph22</string>
+    <string name="glyph32">glyph32</string>
+    <string name="glyph12">glyph12</string>
+    <string name="glyph02">glyph02</string>
+    <string name="glyph21">glyph21</string>
+    <string name="glyph31">glyph31</string>
+    <string name="glyph11">glyph11</string>
+    <string name="glyph01">glyph01</string>
+    <string name="glyph00">glyph00</string>
+    <string name="glyph10">glyph10</string>
+    <string name="glyph30">glyph30</string>
+    <string name="glyph20">glyph20</string>
 </resources>
