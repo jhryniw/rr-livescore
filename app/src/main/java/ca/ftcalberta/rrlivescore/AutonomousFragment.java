@@ -27,6 +27,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.BindView;
+import ca.ftcalberta.rrlivescore.models.OpMode;
+import ca.ftcalberta.rrlivescore.models.Settings;
 
 public class AutonomousFragment extends Fragment implements
         View.OnClickListener,
@@ -61,11 +63,6 @@ public class AutonomousFragment extends Fragment implements
 
     Pattern glyphPattern = Pattern.compile("^glyph(\\d)(\\d)$");
 
-
-    public AutonomousFragment() {
-        this.mCryptobox = new SyncedCryptobox(Alliance.BLUE, 1);
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +75,10 @@ public class AutonomousFragment extends Fragment implements
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_teleop, container, false);
+        View view = inflater.inflate(R.layout.fragment_autonomous, container, false);
+
+        Settings appSettings = Settings.getInstance();
+        this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.AUTONOMOUS, appSettings.getCryptoboxId());
 
         ButterKnife.bind(this, view);
         btnGlyph00.setOnClickListener(this);

@@ -11,6 +11,9 @@ public class Cryptobox {
     private int keyColumn = -1;
     private Glyph[][] box = new Glyph[ROWS][COLS];
 
+    private int autonomousScore = 0;
+    private int teleopScore = 0;
+
     public Cryptobox(Alliance alliance) {
         this.alliance = alliance;
 
@@ -55,10 +58,12 @@ public class Cryptobox {
 
     public void addGlyph(int row, int col, Glyph.Color color) {
         box[row][col] = new Glyph(color);
+        updateScore();
     }
 
     public void removeGlyph(int row, int col) {
         box[row][col] = null;
+        updateScore();
     }
 
     public Glyph getGlyph(int row, int col) {

@@ -21,6 +21,7 @@ import ca.ftcalberta.rrlivescore.data.SyncedCryptobox;
 import ca.ftcalberta.rrlivescore.models.Alliance;
 import ca.ftcalberta.rrlivescore.models.Cryptobox;
 import ca.ftcalberta.rrlivescore.models.Glyph;
+import ca.ftcalberta.rrlivescore.models.OpMode;
 import ca.ftcalberta.rrlivescore.models.Settings;
 
 public class TeleopFragment extends Fragment implements
@@ -44,11 +45,6 @@ public class TeleopFragment extends Fragment implements
 
     Pattern glyphPattern = Pattern.compile("^glyph(\\d)(\\d)$");
 
-
-    public TeleopFragment() {
-
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +60,7 @@ public class TeleopFragment extends Fragment implements
         View view = inflater.inflate(R.layout.fragment_teleop, container, false);
 
         Settings appSettings = Settings.getInstance();
-        this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), appSettings.getCryptoboxId());
+        this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.TELEOP, appSettings.getCryptoboxId());
 
         ButterKnife.bind(this, view);
         btnGlyph00.setOnClickListener(this);

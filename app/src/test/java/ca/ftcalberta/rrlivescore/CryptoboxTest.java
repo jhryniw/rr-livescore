@@ -106,9 +106,9 @@ public class CryptoboxTest {
     public void testKeyColumnSecond() throws Exception {
         // Start from an empty box
         cryptobox = new Cryptobox(Alliance.BLUE);
-        cryptobox.setKeyColumn(1);
+        cryptobox.setKeyColumn(0);
 
-        cryptobox.addGlyph(0, 0, Glyph.Color.BROWN);
+        cryptobox.addGlyph(0, 1, Glyph.Color.BROWN);
         cryptobox.addGlyph(0, 0, Glyph.Color.GRAY);
 
         // No key column score, only points for glyphs
