@@ -6,6 +6,7 @@
 
     <Button
         android:id="@+id/zone_1"
+        android:tag="zone_1"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_margin="4dp"
@@ -20,6 +21,7 @@
 
     <Button
         android:id="@+id/zone_2"
+        android:tag="zone_2"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/button_zone"
@@ -31,6 +33,7 @@
 
     <Button
         android:id="@+id/zone_3"
+        android:tag="zone_3"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:background="@drawable/button_zone"

@@ -19,53 +19,58 @@ import ca.ftcalberta.rrlivescore.models.Cryptobox;
 import ca.ftcalberta.rrlivescore.models.Glyph;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import butterknife.BindView;
 
 public class AutonomousFragment extends Fragment implements
         View.OnClickListener,
         View.OnLongClickListener {
 
-private Cryptobox mCryptobox;
+    private Cryptobox mCryptobox;
 
-@BindView(R.id.glyph00) Button btnGlyph00;
-@BindView(R.id.glyph01) Button btnGlyph01;
-@BindView(R.id.glyph02) Button btnGlyph02;
-@BindView(R.id.glyph10) Button btnGlyph10;
-@BindView(R.id.glyph11) Button btnGlyph11;
-@BindView(R.id.glyph12) Button btnGlyph12;
-@BindView(R.id.glyph20) Button btnGlyph20;
-@BindView(R.id.glyph21) Button btnGlyph21;
-@BindView(R.id.glyph22) Button btnGlyph22;
-@BindView(R.id.glyph30) Button btnGlyph30;
-@BindView(R.id.glyph31) Button btnGlyph31;
-@BindView(R.id.glyph32) Button btnGlyph32;
+    @BindView(R.id.glyph00)
+    Button btnGlyph00;
+    @BindView(R.id.glyph01)
+    Button btnGlyph01;
+    @BindView(R.id.glyph02)
+    Button btnGlyph02;
+    @BindView(R.id.glyph10)
+    Button btnGlyph10;
+    @BindView(R.id.glyph11)
+    Button btnGlyph11;
+    @BindView(R.id.glyph12)
+    Button btnGlyph12;
+    @BindView(R.id.glyph20)
+    Button btnGlyph20;
+    @BindView(R.id.glyph21)
+    Button btnGlyph21;
+    @BindView(R.id.glyph22)
+    Button btnGlyph22;
+    @BindView(R.id.glyph30)
+    Button btnGlyph30;
+    @BindView(R.id.glyph31)
+    Button btnGlyph31;
+    @BindView(R.id.glyph32)
+    Button btnGlyph32;
 
-        Pattern glyphPattern = Pattern.compile("^glyph(\\d)(\\d)$");
+    Pattern glyphPattern = Pattern.compile("^glyph(\\d)(\\d)$");
 
 
-public AutonomousFragment() {
+    public AutonomousFragment() {
         this.mCryptobox = new SyncedCryptobox(Alliance.BLUE, 1);
-        }
+    }
 
-@Override
-public void onCreate(@Nullable Bundle savedInstanceState) {
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-        return;
+            return;
         }
-}
+    }
 
-@Nullable
-@Override
-public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_teleop, container, false);
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_autonomous, container, false);
 
         ButterKnife.bind(this, view);
         btnGlyph00.setOnClickListener(this);
@@ -95,38 +100,38 @@ public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
         btnGlyph32.setOnLongClickListener(this);
 
         return view;
-        }
+    }
 
 
-@Override
-public void onClick(View view) {
-        String tag = (String)view.getTag();
-
-        Matcher glyphMatcher = glyphPattern.matcher(tag);
-        if(glyphMatcher.matches()){
-        int row = Integer.parseInt(glyphMatcher.group(1));
-        int col = Integer.parseInt(glyphMatcher.group(2));
-
-        mCryptobox.toggleGlyph(row, col);
-
-        Glyph glyph = mCryptobox.getGlyph(row, col);
-        view.setBackgroundColor(glyph.getColor().toColor());
-        }
-        }
-
-@Override
-public boolean onLongClick(View view) {
-        String tag = (String)view.getTag();
+    @Override
+    public void onClick(View view) {
+        String tag = (String) view.getTag();
 
         Matcher glyphMatcher = glyphPattern.matcher(tag);
-        if(glyphMatcher.matches()){
-        int row = Integer.parseInt(glyphMatcher.group(1));
-        int col = Integer.parseInt(glyphMatcher.group(2));
+        if (glyphMatcher.matches()) {
+            int row = Integer.parseInt(glyphMatcher.group(1));
+            int col = Integer.parseInt(glyphMatcher.group(2));
 
-        mCryptobox.removeGlyph(row, col);
-        view.setBackgroundResource(R.drawable.glyph_button);
-        return true;
+            mCryptobox.toggleGlyph(row, col);
+
+            Glyph glyph = mCryptobox.getGlyph(row, col);
+            view.setBackgroundColor(glyph.getColor().toColor());
+        }
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        String tag = (String) view.getTag();
+
+        Matcher glyphMatcher = glyphPattern.matcher(tag);
+        if (glyphMatcher.matches()) {
+            int row = Integer.parseInt(glyphMatcher.group(1));
+            int col = Integer.parseInt(glyphMatcher.group(2));
+
+            mCryptobox.removeGlyph(row, col);
+            view.setBackgroundResource(R.drawable.glyph_button);
+            return true;
         }
         return false;
-        }
-        }
+    }
+}
