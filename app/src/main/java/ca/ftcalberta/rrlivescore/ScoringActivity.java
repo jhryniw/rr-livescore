@@ -7,8 +7,11 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +42,7 @@ public class ScoringActivity extends AppCompatActivity implements
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new AutonomousFragment(), "Autonomous");
         adapter.addFragment(new TeleopFragment(), "Teleop");
+        setTitle("Autonomous");
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(this);
@@ -74,9 +78,11 @@ public class ScoringActivity extends AppCompatActivity implements
         switch (position) {
             case 0:
                 navigation.setSelectedItemId(R.id.navigation_autonomous);
+                setTitle(adapter.getPageTitle(0));
                 break;
             case 1:
                 navigation.setSelectedItemId(R.id.navigation_teleop);
+                setTitle(adapter.getPageTitle(1));
                 break;
         }
     }
@@ -96,7 +102,8 @@ public class ScoringActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
                 return true;
             case R.id.action_logout:
                 CurrentUser.signOut();
