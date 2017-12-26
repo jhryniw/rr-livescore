@@ -150,7 +150,7 @@ public class Cryptobox {
         return true;
     }
 
-    public boolean colIsFull(int col) {
+    private boolean colIsFull(int col) {
         for (int i = 0; i < ROWS; i++) {
             if(getGlyph(i, col) == null) return false;
         }
