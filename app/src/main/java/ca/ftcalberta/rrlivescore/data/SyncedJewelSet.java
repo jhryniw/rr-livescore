@@ -37,6 +37,17 @@ public class SyncedJewelSet extends JewelSet {
         jewelSetRef.child("red-score").setValue(getRedScore());
     }
 
+    @Override
+    public void reset() {
+        super.reset();
+
+        jewelSetRef.child(getJewelId(Alliance.BLUE))
+                .setValue(isOnPlatform(Alliance.BLUE));
+
+        jewelSetRef.child(getJewelId(Alliance.RED))
+                .setValue(isOnPlatform(Alliance.RED));
+    }
+
     private DatabaseReference getRootRef() {
         String root = String.format(Locale.CANADA, "jewelset-%d", jewelSetId);
         return FirebaseUtil.getCurrentMatchReference().child(root);

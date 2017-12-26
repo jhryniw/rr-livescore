@@ -3,7 +3,9 @@ package ca.ftcalberta.rrlivescore.models;
 
 import android.support.annotation.VisibleForTesting;
 
-public class Cryptobox {
+import ca.ftcalberta.rrlivescore.utils.Resetable;
+
+public class Cryptobox implements Resetable {
     public static final int ROWS = 4;
     public static final int COLS = 3;
 
@@ -53,10 +55,7 @@ public class Cryptobox {
 
     public Cryptobox(Alliance alliance) {
         this.alliance = alliance;
-
-        for (int i = 0; i < ROWS; i++) {
-            box[i] = new Glyph[COLS];
-        }
+        reset();
     }
 
     public Cryptobox(Alliance alliance, int keyColumn, Glyph[][] box) {
@@ -195,6 +194,16 @@ public class Cryptobox {
             if(getGlyph(i, col) == null) return false;
         }
         return true;
+    }
+
+    @Override
+    public void reset() {
+        for (int i = 0; i < ROWS; i++) {
+            box[i] = new Glyph[COLS];
+        }
+
+        autonomousScore = 0;
+        teleopScore = 0;
     }
 
     @VisibleForTesting

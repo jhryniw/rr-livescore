@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -19,10 +20,15 @@ import butterknife.ButterKnife;
 import ca.ftcalberta.rrlivescore.models.Alliance;
 import ca.ftcalberta.rrlivescore.models.CurrentUser;
 import ca.ftcalberta.rrlivescore.models.Settings;
+import ca.ftcalberta.rrlivescore.utils.Resetable;
 
 public class ScoringActivity extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener,
-        ViewPager.OnPageChangeListener {
+        ViewPager.OnPageChangeListener,
+        Resetable {
+
+    private static final int AUTO_FRAGMENT_ID = 0;
+    private static final int TELE_FRAGMENT_ID = 1;
 
     @BindView(R.id.fragment_container)
     ViewPager viewPager;
@@ -33,6 +39,9 @@ public class ScoringActivity extends AppCompatActivity implements
     ViewPagerAdapter adapter;
 
     private Alliance alliance;
+
+    private Resetable autoFragment;
+    private Resetable teleFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +62,16 @@ public class ScoringActivity extends AppCompatActivity implements
 
         ButterKnife.bind(this);
 
+        Fragment autonomousFragment = new AutonomousFragment();
+        Fragment teleopFragment = new TeleopFragment();
+
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new AutonomousFragment(), "Autonomous");
-        adapter.addFragment(new TeleopFragment(), "Teleop");
+        adapter.addFragment(autonomousFragment, "Autonomous");
+        adapter.addFragment(teleopFragment, "Teleop");
         setTitle("Autonomous");
+
+        autoFragment = (Resetable) autonomousFragment;
+        teleFragment = (Resetable) teleopFragment;
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(this);
@@ -80,13 +95,13 @@ public class ScoringActivity extends AppCompatActivity implements
 
         switch (item.getItemId()) {
             case R.id.navigation_autonomous:
-                if (viewPager.getCurrentItem() != 0) {
-                    viewPager.setCurrentItem(0);
+                if (viewPager.getCurrentItem() != AUTO_FRAGMENT_ID) {
+                    viewPager.setCurrentItem(AUTO_FRAGMENT_ID);
                 }
                 return true;
             case R.id.navigation_teleop:
-                if (viewPager.getCurrentItem() != 1) {
-                    viewPager.setCurrentItem(1);
+                if (viewPager.getCurrentItem() != TELE_FRAGMENT_ID) {
+                    viewPager.setCurrentItem(TELE_FRAGMENT_ID);
                 }
                 return true;
         }
@@ -101,13 +116,13 @@ public class ScoringActivity extends AppCompatActivity implements
     @Override
     public void onPageSelected(int position) {
         switch (position) {
-            case 0:
+            case AUTO_FRAGMENT_ID:
                 navigation.setSelectedItemId(R.id.navigation_autonomous);
-                setTitle(adapter.getPageTitle(0));
+                setTitle(adapter.getPageTitle(AUTO_FRAGMENT_ID));
                 break;
-            case 1:
+            case TELE_FRAGMENT_ID:
                 navigation.setSelectedItemId(R.id.navigation_teleop);
-                setTitle(adapter.getPageTitle(1));
+                setTitle(adapter.getPageTitle(TELE_FRAGMENT_ID));
                 break;
         }
     }
@@ -126,18 +141,33 @@ public class ScoringActivity extends AppCompatActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_reset:
+                // TODO: Add confirmation dialog
+                if (viewPager.getCurrentItem() == TELE_FRAGMENT_ID) {
+                    viewPager.setCurrentItem(AUTO_FRAGMENT_ID);
+                }
+                reset();
+                break;
             case R.id.action_settings:
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
                 startActivity(settingsIntent);
-                return true;
+                break;
             case R.id.action_logout:
                 CurrentUser.signOut();
                 Intent backToLogin = new Intent(this, LoginActivity.class);
                 startActivity(backToLogin);
                 finish();
-                return true;
+                break;
             default:
-                return super.onOptionsItemSelected(item);
+                super.onOptionsItemSelected(item);
         }
+
+        return true;
+    }
+
+    @Override
+    public void reset() {
+        autoFragment.reset();
+        teleFragment.reset();
     }
 }

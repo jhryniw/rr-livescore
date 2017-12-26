@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,16 +27,18 @@ import android.widget.ImageButton;
 import ca.ftcalberta.rrlivescore.models.JewelSet;
 import ca.ftcalberta.rrlivescore.models.OpMode;
 import ca.ftcalberta.rrlivescore.models.Settings;
+import ca.ftcalberta.rrlivescore.utils.Resetable;
 
 public class AutonomousFragment extends Fragment implements
         View.OnClickListener,
-        View.OnLongClickListener {
+        View.OnLongClickListener,
+        Resetable {
 
     private Cryptobox mCryptobox;
     private JewelSet mJewelSet;
     private boolean safeZone = false;
-    private boolean redJewelOnPlatform = true;
-    private boolean blueJewelOnPlatform = true;
+
+    private ArrayList<Button> glyphButtons;
 
     @BindView(R.id.glyph00)
     Button btnGlyph00;
@@ -91,38 +94,31 @@ public class AutonomousFragment extends Fragment implements
         this.mJewelSet = new SyncedJewelSet(appSettings.getAlliance(), appSettings.getCryptoboxId());
 
         ButterKnife.bind(this, view);
-        btnGlyph00.setOnClickListener(this);
-        btnGlyph01.setOnClickListener(this);
-        btnGlyph02.setOnClickListener(this);
-        btnGlyph10.setOnClickListener(this);
-        btnGlyph11.setOnClickListener(this);
-        btnGlyph12.setOnClickListener(this);
-        btnGlyph20.setOnClickListener(this);
-        btnGlyph21.setOnClickListener(this);
-        btnGlyph22.setOnClickListener(this);
-        btnGlyph30.setOnClickListener(this);
-        btnGlyph31.setOnClickListener(this);
-        btnGlyph32.setOnClickListener(this);
 
-        btnGlyph00.setOnLongClickListener(this);
-        btnGlyph01.setOnLongClickListener(this);
-        btnGlyph02.setOnLongClickListener(this);
-        btnGlyph10.setOnLongClickListener(this);
-        btnGlyph11.setOnLongClickListener(this);
-        btnGlyph12.setOnLongClickListener(this);
-        btnGlyph20.setOnLongClickListener(this);
-        btnGlyph21.setOnLongClickListener(this);
-        btnGlyph22.setOnLongClickListener(this);
-        btnGlyph30.setOnLongClickListener(this);
-        btnGlyph31.setOnLongClickListener(this);
-        btnGlyph32.setOnLongClickListener(this);
+        glyphButtons = new ArrayList<>(12);
+        glyphButtons.add(btnGlyph00);
+        glyphButtons.add(btnGlyph01);
+        glyphButtons.add(btnGlyph02);
+        glyphButtons.add(btnGlyph10);
+        glyphButtons.add(btnGlyph11);
+        glyphButtons.add(btnGlyph12);
+        glyphButtons.add(btnGlyph20);
+        glyphButtons.add(btnGlyph21);
+        glyphButtons.add(btnGlyph22);
+        glyphButtons.add(btnGlyph30);
+        glyphButtons.add(btnGlyph31);
+        glyphButtons.add(btnGlyph32);
+
+        for(Button glyphButton : glyphButtons) {
+            glyphButton.setOnClickListener(this);
+            glyphButton.setOnLongClickListener(this);
+        }
 
         btnRedJewel.setOnClickListener(this);
         btnBlueJewel.setOnClickListener(this);
         btnSafeZone.setOnClickListener(this);
         return view;
     }
-
 
     @Override
     public void onClick(View view) {
@@ -148,8 +144,9 @@ public class AutonomousFragment extends Fragment implements
             }
         } else if(jewelMatcher.matches()){
             Alliance jewelAlliance = Alliance.fromString(jewelMatcher.group(1));
+            mJewelSet.toggleJewel(jewelAlliance);
 
-            if(mJewelSet.isOnPlatform(jewelAlliance)){
+            if(!mJewelSet.isOnPlatform(jewelAlliance)){
                 view.setBackgroundColor(Color.TRANSPARENT);
             }
             else {
@@ -159,7 +156,7 @@ public class AutonomousFragment extends Fragment implements
                     view.setBackgroundResource(R.drawable.jewel_blue);
                 }
             }
-            mJewelSet.toggleJewel(jewelAlliance);
+
         } else if(tag.equals("safe_zone")){
             if(safeZone){
                 view.setBackgroundResource(R.drawable.safe_zone_blue);
@@ -185,5 +182,23 @@ public class AutonomousFragment extends Fragment implements
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void reset() {
+        // Reset cryptobox
+
+        if (mCryptobox != null) {
+            mCryptobox.reset();
+            for (Button glyphButton : glyphButtons) {
+                glyphButton.setBackgroundResource(R.drawable.glyph_button);
+            }
+        }
+
+        if (mJewelSet != null) {
+            mJewelSet.reset();
+            btnRedJewel.setBackgroundResource(R.drawable.jewel_red);
+            btnRedJewel.setBackgroundResource(R.drawable.jewel_blue);
+        }
     }
 }
