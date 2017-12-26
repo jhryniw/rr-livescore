@@ -3,33 +3,40 @@ package ca.ftcalberta.rrlivescore.models;
 
 public class JewelSet {
 
-    private Jewel redJewel;
-    private Jewel blueJewel;
-
-    public JewelSet(Jewel redJewel, Jewel blueJewel) {
-        this.redJewel = redJewel;
-        this.blueJewel = blueJewel;
-    }
+    private boolean redIsOnPlatform;
+    private boolean blueIsOnPlatform;
 
     public JewelSet() {
-        this.redJewel = new Jewel(Alliance.RED);
-        this.blueJewel = new Jewel(Alliance.BLUE);
+        redIsOnPlatform = true;
+        blueIsOnPlatform = true;
     }
 
-    public Jewel getRedJewel() {
-        return redJewel;
+    public JewelSet(boolean redOnPlatform, boolean blueOnPlatform) {
+        this.redIsOnPlatform = redOnPlatform;
+        this.blueIsOnPlatform = blueOnPlatform;
     }
 
-    public Jewel getBlueJewel() {
-        return blueJewel;
-    }
-
-    public Jewel getJewelByColour(String colour){
-        if(colour.equals("blue")){
-            return getBlueJewel();
-        } else {
-            return getRedJewel();
+    public boolean isOnPlatform(Alliance alliance) {
+        if (alliance.isRed()) {
+            return redIsOnPlatform;
         }
+        else if (alliance.isBlue()) {
+            return blueIsOnPlatform;
+        }
+        return false;
+    }
+
+    public void setOnPlatform(Alliance alliance, boolean onPlatform) {
+        if (alliance.isRed()) {
+            redIsOnPlatform = onPlatform;
+        }
+        else if (alliance.isBlue()) {
+            blueIsOnPlatform = onPlatform;
+        }
+    }
+
+    public void toggleJewel(Alliance alliance) {
+
     }
 
     public int getScoreForAlliance(Alliance alliance) {
