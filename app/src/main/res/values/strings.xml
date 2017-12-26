@@ -41,4 +41,5 @@
     <string name="glyph10">glyph10</string>
     <string name="glyph30">glyph30</string>
     <string name="glyph20">glyph20</string>
+    <string name="safe_zone">safe_zone</string>
 </resources>

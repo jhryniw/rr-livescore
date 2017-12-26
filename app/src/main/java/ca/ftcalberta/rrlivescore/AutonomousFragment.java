@@ -94,6 +94,7 @@ public class AutonomousFragment extends Fragment implements
 
         Settings appSettings = Settings.getInstance();
         this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.AUTONOMOUS, appSettings.getCryptoboxId());
+        this.mJewelSet = new JewelSet();
 
         ButterKnife.bind(this, view);
         btnGlyph00.setOnClickListener(this);
@@ -151,24 +152,18 @@ public class AutonomousFragment extends Fragment implements
                 view.setBackgroundColor(color);
             }
         } else if(jewelMatcher.matches()){
-            int color = getResources().getColor(R.color.glyphGray);
-            String jewelColour = jewelMatcher.group(1);
-            if(jewelColour.equals("blue")){
-                if(blueJewelOnPlatform){
-                    view.setBackgroundColor(Color.TRANSPARENT);
-                } else {
-                    view.setBackgroundResource(R.drawable.jewel_blue);
-                }
-                blueJewelOnPlatform = !blueJewelOnPlatform;
-            }else{
-                if(redJewelOnPlatform){
-                    view.setBackgroundColor(Color.TRANSPARENT);
-                } else {
-                    view.setBackgroundResource(R.drawable.jewel_red);
-                }
-                redJewelOnPlatform = !redJewelOnPlatform;
-            }
+            Jewel jewel = mJewelSet.getJewelByColour(jewelMatcher.group(1));
 
+            if(jewel.isOnPlatform()){
+                    view.setBackgroundColor(Color.TRANSPARENT);
+                } else {
+                    if(jewel.getAlliance() == Alliance.RED){
+                        view.setBackgroundResource(R.drawable.jewel_red);
+                    }else {
+                        view.setBackgroundResource(R.drawable.jewel_blue);
+                    }
+                }
+            jewel.setOnPlatform(!jewel.isOnPlatform());
         }
     }
 
