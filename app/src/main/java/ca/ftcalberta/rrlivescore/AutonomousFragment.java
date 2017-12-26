@@ -152,18 +152,19 @@ public class AutonomousFragment extends Fragment implements
                 view.setBackgroundColor(color);
             }
         } else if(jewelMatcher.matches()){
-            Jewel jewel = mJewelSet.getJewelByColour(jewelMatcher.group(1));
+            Alliance jewelAlliance = Alliance.fromString(jewelMatcher.group(1));
 
-            if(jewel.isOnPlatform()){
-                    view.setBackgroundColor(Color.TRANSPARENT);
+            if(mJewelSet.isOnPlatform(jewelAlliance)){
+                view.setBackgroundColor(Color.TRANSPARENT);
+            }
+            else {
+                if(jewelAlliance.isRed()){
+                    view.setBackgroundResource(R.drawable.jewel_red);
                 } else {
-                    if(jewel.getAlliance() == Alliance.RED){
-                        view.setBackgroundResource(R.drawable.jewel_red);
-                    }else {
-                        view.setBackgroundResource(R.drawable.jewel_blue);
-                    }
+                    view.setBackgroundResource(R.drawable.jewel_blue);
                 }
-            jewel.setOnPlatform(!jewel.isOnPlatform());
+            }
+            mJewelSet.toggleJewel(jewelAlliance);
         }
     }
 
