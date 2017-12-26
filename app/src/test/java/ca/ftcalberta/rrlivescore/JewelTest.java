@@ -20,34 +20,31 @@ public class JewelTest {
 
     @Test
     public void bothOnPlatform() throws Exception {
-        assertEquals(0, jewelSet.getScoreForAlliance(Alliance.BLUE));
-        assertEquals(0, jewelSet.getScoreForAlliance(Alliance.RED));
+        assertEquals(0, jewelSet.getBlueScore());
+        assertEquals(0, jewelSet.getRedScore());
     }
 
     @Test
     public void blueOffPlatform() throws Exception {
-        jewelSet.setOnPlatform(Alliance.BLUE, false);
-        jewelSet.setOnPlatform(Alliance.RED, false);
+        jewelSet = new JewelSet(true, false);
 
-        assertEquals(0, jewelSet.getScoreForAlliance(Alliance.BLUE));
-        assertEquals(30, jewelSet.getScoreForAlliance(Alliance.RED));
+        assertEquals(0, jewelSet.getBlueScore());
+        assertEquals(30, jewelSet.getRedScore());
     }
 
     @Test
     public void redOffPlatform() throws Exception {
-        jewelSet.setOnPlatform(Alliance.BLUE, true);
-        jewelSet.setOnPlatform(Alliance.BLUE, false);
+        jewelSet = new JewelSet(false, true);
 
-        assertEquals(30, jewelSet.getScoreForAlliance(Alliance.BLUE));
-        assertEquals(0, jewelSet.getScoreForAlliance(Alliance.RED));
+        assertEquals(30, jewelSet.getBlueScore());
+        assertEquals(0, jewelSet.getRedScore());
     }
 
     @Test
     public void bothOffPlatform() throws Exception {
-        jewelSet.setOnPlatform(Alliance.BLUE, false);
-        jewelSet.setOnPlatform(Alliance.RED, false);
+        jewelSet = new JewelSet(false, false);
 
-        assertEquals(0, jewelSet.getScoreForAlliance(Alliance.BLUE));
-        assertEquals(0, jewelSet.getScoreForAlliance(Alliance.RED));
+        assertEquals(0, jewelSet.getBlueScore());
+        assertEquals(0, jewelSet.getRedScore());
     }
 }

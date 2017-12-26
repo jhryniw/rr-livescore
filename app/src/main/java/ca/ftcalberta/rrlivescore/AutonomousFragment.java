@@ -2,7 +2,6 @@ package ca.ftcalberta.rrlivescore;
 
 
 import android.graphics.Color;
-import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,23 +15,16 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ca.ftcalberta.rrlivescore.data.SyncedCryptobox;
+import ca.ftcalberta.rrlivescore.data.SyncedJewelSet;
 import ca.ftcalberta.rrlivescore.models.Alliance;
 import ca.ftcalberta.rrlivescore.models.Cryptobox;
 import ca.ftcalberta.rrlivescore.models.Glyph;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import butterknife.BindView;
-import ca.ftcalberta.rrlivescore.models.Jewel;
 import ca.ftcalberta.rrlivescore.models.JewelSet;
 import ca.ftcalberta.rrlivescore.models.OpMode;
-import ca.ftcalberta.rrlivescore.models.Relic;
 import ca.ftcalberta.rrlivescore.models.Settings;
 
 public class AutonomousFragment extends Fragment implements
@@ -96,7 +88,7 @@ public class AutonomousFragment extends Fragment implements
 
         Settings appSettings = Settings.getInstance();
         this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.AUTONOMOUS, appSettings.getCryptoboxId());
-        this.mJewelSet = new JewelSet();
+        this.mJewelSet = new SyncedJewelSet(appSettings.getAlliance(), appSettings.getCryptoboxId());
 
         ButterKnife.bind(this, view);
         btnGlyph00.setOnClickListener(this);
