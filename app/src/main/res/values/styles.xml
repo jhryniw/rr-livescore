@@ -12,12 +12,16 @@
         <item name="colorPrimary">@color/blue800</item>
         <item name="colorPrimaryDark">@color/blue800Dark</item>
         <item name="colorAccent">@color/gray600</item>
+
+        <item name="cryptobox_rail">@drawable/cryptobox_rail_blue</item>
     </style>
 
     <style name="AppTheme.Red">
         <item name="colorPrimary">@color/red800</item>
         <item name="colorPrimaryDark">@color/red800Dark</item>
         <item name="colorAccent">@color/gray600</item>
+
+        <item name="cryptobox_rail">@drawable/cryptobox_rail_red</item>
     </style>
 
 </resources>

@@ -14,7 +14,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/glyph21"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/crytobox_rail" />
+        app:srcCompat="?cryptobox_rail" />
 
     <ImageView
         android:id="@+id/rail_right"
@@ -26,7 +26,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/glyph22"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/crytobox_rail" />
+        app:srcCompat="?cryptobox_rail" />
 
     <ImageView
         android:id="@+id/rail_centre_left"
@@ -38,7 +38,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/glyph00"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/crytobox_rail" />
+        app:srcCompat="?cryptobox_rail" />
 
     <ImageView
         android:id="@+id/rail_left"
@@ -51,7 +51,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/crytobox_rail" />
+        app:srcCompat="?cryptobox_rail" />
 
     <Button
         android:id="@+id/glyph22"
