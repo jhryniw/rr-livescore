@@ -161,7 +161,6 @@ public class TeleopFragment extends Fragment implements
             isBalanced = !isBalanced;
             //todo: add scoring for balance
         }
-
     }
 
     @Override
