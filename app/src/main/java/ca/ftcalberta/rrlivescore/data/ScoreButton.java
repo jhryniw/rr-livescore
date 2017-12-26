@@ -7,23 +7,19 @@ import java.util.Locale;
 import ca.ftcalberta.rrlivescore.models.OpMode;
 import ca.ftcalberta.rrlivescore.models.Settings;
 
-/**
- * Created by a on 26/12/2017.
- */
-
 public class ScoreButton {
 
-
-
-
     private DatabaseReference buttonRef;
+    private String buttonTag;
 
-    public void ScoreButton(String buttonTag, int value){
+    public ScoreButton(String tag){
+        buttonTag = tag;
         buttonRef = getRootRef(buttonTag);
-        buttonRef.child(buttonTag).setValue(value);
-
     }
 
+    public void updateScore(String buttonTag, int value){
+        buttonRef.child("score").setValue(value);
+    }
 
     private DatabaseReference getRootRef(String buttonTag) {
         int id = Settings.getInstance().getCryptoboxId();

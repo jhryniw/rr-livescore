@@ -163,7 +163,7 @@ public class TeleopFragment extends Fragment implements
                 view.setBackgroundResource(R.drawable.balance_blue);
             }
             isBalanced = !isBalanced;
-            //todo: add scoring for balance
+            scoreButton(tag, isBalanced? 30: 0);
         }
     }
 
@@ -183,11 +183,10 @@ public class TeleopFragment extends Fragment implements
         return false;
     }
 
-    public void ScoreButton(String buttonTag, int value){
+    public void scoreButton(String buttonTag, int value){
         DatabaseReference buttonRef;
         buttonRef = getRootRef(buttonTag);
         buttonRef.child(buttonTag).setValue(value);
-
     }
 
 
@@ -202,7 +201,6 @@ public class TeleopFragment extends Fragment implements
         else {
             strId = "front";
         }
-
         String root = String.format(Locale.CANADA, "%s-%s-%s",buttonTag, strAlliance,  strId);
 
         return FirebaseUtil.getCurrentMatchReference().child(root);
