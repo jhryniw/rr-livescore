@@ -12,11 +12,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ca.ftcalberta.rrlivescore.data.FirebaseUtil;
 import ca.ftcalberta.rrlivescore.data.SyncedCryptobox;
 import ca.ftcalberta.rrlivescore.models.Alliance;
 import ca.ftcalberta.rrlivescore.models.Cryptobox;
@@ -171,4 +175,30 @@ public class TeleopFragment extends Fragment implements
         }
         return false;
     }
+
+    public void ScoreButton(String buttonTag, int value){
+        DatabaseReference buttonRef;
+        buttonRef = getRootRef(buttonTag);
+        buttonRef.child(buttonTag).setValue(value);
+
+    }
+
+
+    private DatabaseReference getRootRef(String buttonTag) {
+        int id = Settings.getInstance().getCryptoboxId();
+        String strAlliance = Settings.getInstance().getAlliance().toString().toLowerCase();
+
+        String strId;
+        if (id == Settings.CRYPTOBOX_BACK) {
+            strId = "back";
+        }
+        else {
+            strId = "front";
+        }
+
+        String root = String.format(Locale.CANADA, "%s-%s-%s",buttonTag, strAlliance,  strId);
+
+        return FirebaseUtil.getCurrentMatchReference().child(root);
+    }
+
 }
