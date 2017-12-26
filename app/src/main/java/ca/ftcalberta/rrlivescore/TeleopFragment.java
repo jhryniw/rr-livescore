@@ -133,9 +133,9 @@ public class TeleopFragment extends Fragment implements
             int zone = Integer.parseInt(zoneMatcher.group(1));
             boolean isUpright = mRelic.isUpright();
 
-            for(int i = 1; i <= 3; i++){
-                view.setBackgroundResource(R.drawable.button_zone);
-            }
+            btnZone1.setBackgroundResource(R.drawable.button_zone);
+            btnZone2.setBackgroundResource(R.drawable.button_zone);
+            btnZone3.setBackgroundResource(R.drawable.button_zone);
 
             if(mRelic.zone == zone) {
                 if (mRelic.isUpright()) {

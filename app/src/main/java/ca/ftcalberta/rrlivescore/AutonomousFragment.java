@@ -1,6 +1,7 @@
 package ca.ftcalberta.rrlivescore;
 
 
+import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,9 +26,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import butterknife.BindView;
+import ca.ftcalberta.rrlivescore.models.Jewel;
+import ca.ftcalberta.rrlivescore.models.JewelSet;
 import ca.ftcalberta.rrlivescore.models.OpMode;
+import ca.ftcalberta.rrlivescore.models.Relic;
 import ca.ftcalberta.rrlivescore.models.Settings;
 
 public class AutonomousFragment extends Fragment implements
@@ -35,6 +40,10 @@ public class AutonomousFragment extends Fragment implements
         View.OnLongClickListener {
 
     private Cryptobox mCryptobox;
+    private JewelSet mJewelSet;
+    private boolean safeZone = false;
+    private boolean redJewelOnPlatform = true;
+    private boolean blueJewelOnPlatform = true;
 
     @BindView(R.id.glyph00)
     Button btnGlyph00;
@@ -61,7 +70,13 @@ public class AutonomousFragment extends Fragment implements
     @BindView(R.id.glyph32)
     Button btnGlyph32;
 
+    @BindView(R.id.red_jewel)
+    ImageButton btnRedJewel;
+    @BindView(R.id.blue_jewel)
+    ImageButton btnBlueJewel;
+
     Pattern glyphPattern = Pattern.compile("^glyph(\\d)(\\d)$");
+    Pattern jewelPattern = Pattern.compile("^jewel_(blue|red)$");
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,6 +122,8 @@ public class AutonomousFragment extends Fragment implements
         btnGlyph31.setOnLongClickListener(this);
         btnGlyph32.setOnLongClickListener(this);
 
+        btnRedJewel.setOnClickListener(this);
+        btnBlueJewel.setOnClickListener(this);
         return view;
     }
 
@@ -116,6 +133,8 @@ public class AutonomousFragment extends Fragment implements
         String tag = (String) view.getTag();
 
         Matcher glyphMatcher = glyphPattern.matcher(tag);
+        Matcher jewelMatcher = jewelPattern.matcher(tag);
+
         if (glyphMatcher.matches()) {
             int row = Integer.parseInt(glyphMatcher.group(1));
             int col = Integer.parseInt(glyphMatcher.group(2));
@@ -131,6 +150,25 @@ public class AutonomousFragment extends Fragment implements
                 int color = getResources().getColor(R.color.glyphGray);
                 view.setBackgroundColor(color);
             }
+        } else if(jewelMatcher.matches()){
+            int color = getResources().getColor(R.color.glyphGray);
+            String jewelColour = jewelMatcher.group(1);
+            if(jewelColour.equals("blue")){
+                if(blueJewelOnPlatform){
+                    view.setBackgroundColor(Color.TRANSPARENT);
+                } else {
+                    view.setBackgroundResource(R.drawable.jewel_blue);
+                }
+                blueJewelOnPlatform = !blueJewelOnPlatform;
+            }else{
+                if(redJewelOnPlatform){
+                    view.setBackgroundColor(Color.TRANSPARENT);
+                } else {
+                    view.setBackgroundResource(R.drawable.jewel_red);
+                }
+                redJewelOnPlatform = !redJewelOnPlatform;
+            }
+
         }
     }
 
