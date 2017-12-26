@@ -21,6 +21,7 @@ import ca.ftcalberta.rrlivescore.data.SyncedCryptobox;
 import ca.ftcalberta.rrlivescore.models.Alliance;
 import ca.ftcalberta.rrlivescore.models.Cryptobox;
 import ca.ftcalberta.rrlivescore.models.Glyph;
+import ca.ftcalberta.rrlivescore.models.Relic;
 import ca.ftcalberta.rrlivescore.models.OpMode;
 import ca.ftcalberta.rrlivescore.models.Settings;
 
@@ -29,6 +30,8 @@ public class TeleopFragment extends Fragment implements
         View.OnLongClickListener {
 
     private Cryptobox mCryptobox;
+    private Relic mRelic;
+    private boolean isBalanced;
 
     @BindView(R.id.glyph00) Button btnGlyph00;
     @BindView(R.id.glyph01) Button btnGlyph01;
@@ -43,7 +46,12 @@ public class TeleopFragment extends Fragment implements
     @BindView(R.id.glyph31) Button btnGlyph31;
     @BindView(R.id.glyph32) Button btnGlyph32;
 
+    @BindView(R.id.zone_1) Button btnZone1;
+    @BindView(R.id.zone_2) Button btnZone2;
+    @BindView(R.id.zone_3) Button btnZone3;
+
     Pattern glyphPattern = Pattern.compile("^glyph(\\d)(\\d)$");
+    Pattern zonePattern = Pattern.compile("^zone_(\\d)$");
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +69,7 @@ public class TeleopFragment extends Fragment implements
 
         Settings appSettings = Settings.getInstance();
         this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.TELEOP, appSettings.getCryptoboxId());
+        this.mRelic = new Relic(appSettings.getAlliance());
 
         ButterKnife.bind(this, view);
         btnGlyph00.setOnClickListener(this);
@@ -89,6 +98,10 @@ public class TeleopFragment extends Fragment implements
         btnGlyph31.setOnLongClickListener(this);
         btnGlyph32.setOnLongClickListener(this);
 
+        btnZone1.setOnClickListener(this);
+        btnZone2.setOnClickListener(this);
+        btnZone3.setOnClickListener(this);
+
         return view;
     }
 
@@ -98,6 +111,8 @@ public class TeleopFragment extends Fragment implements
         String tag = (String)view.getTag();
 
         Matcher glyphMatcher = glyphPattern.matcher(tag);
+        Matcher zoneMatcher = zonePattern.matcher(tag);
+
         if(glyphMatcher.matches()){
             int row = Integer.parseInt(glyphMatcher.group(1));
             int col = Integer.parseInt(glyphMatcher.group(2));
@@ -114,6 +129,31 @@ public class TeleopFragment extends Fragment implements
                 view.setBackgroundColor(color);
             }
         }
+        else if(zoneMatcher.matches()){
+            int zone = Integer.parseInt(zoneMatcher.group(1));
+            boolean isUpright = mRelic.isUpright();
+
+            for(int i = 1; i <= 3; i++){
+                view.setBackgroundResource(R.drawable.button_zone);
+            }
+
+            if(mRelic.zone == zone) {
+                if (mRelic.isUpright()) {
+                    mRelic.setUpright(false);
+                    view.setBackgroundResource(R.drawable.button_zone);
+                } else {
+                    mRelic.setUpright(true);
+                    view.setBackgroundResource(R.drawable.relic_black);
+                }
+            } else {
+                mRelic.setUpright(false);
+                view.setBackgroundResource(R.drawable.relic_black_tipped);
+            }
+            mRelic.setZone(zone);
+        } else if(tag == "balance"){
+
+        }
+
     }
 
     @Override
