@@ -14,6 +14,33 @@ public class Cryptobox {
     private static final int CIPHER_BONUS = 30;
     private static final int KEY_COLUMN_BONUS = 30;
 
+    private static final Glyph grayGlyph = new Glyph(Glyph.Color.GRAY);
+    private static final Glyph brownGlyph = new Glyph(Glyph.Color.BROWN);
+
+    private static final Glyph[][] frogCipher = new Glyph[][]
+            {
+                    new Glyph[] {brownGlyph, grayGlyph, brownGlyph},
+                    new Glyph[] {grayGlyph, brownGlyph, grayGlyph},
+                    new Glyph[] {brownGlyph, grayGlyph, brownGlyph},
+                    new Glyph[] {grayGlyph, brownGlyph, grayGlyph}
+            };
+
+    private static final Glyph[][] birdCipher = new Glyph[][]
+            {
+                    new Glyph[] {brownGlyph, grayGlyph, brownGlyph},
+                    new Glyph[] {grayGlyph, brownGlyph, grayGlyph},
+                    new Glyph[] {grayGlyph, brownGlyph, grayGlyph},
+                    new Glyph[] {brownGlyph, grayGlyph, brownGlyph},
+            };
+
+    private static final Glyph[][] snakeCipher = new Glyph[][]
+            {
+                    new Glyph[] {brownGlyph, brownGlyph, grayGlyph},
+                    new Glyph[] {brownGlyph, grayGlyph, grayGlyph},
+                    new Glyph[] {grayGlyph, grayGlyph, brownGlyph},
+                    new Glyph[] {grayGlyph, brownGlyph, brownGlyph},
+            };
+
     private Alliance alliance;
     private int keyColumn = -1;
     private Glyph[][] box = new Glyph[ROWS][COLS];
@@ -128,11 +155,24 @@ public class Cryptobox {
     }
 
     public boolean isCipherComplete() {
-        if (getGlyphCount() != ROWS * COLS) {
-            return false;
+        if (getGlyphCount() != ROWS * COLS) return false;
+
+        return equalsCipher(frogCipher) ||
+                equalsCipher(birdCipher) ||
+                equalsCipher(snakeCipher);
+    }
+
+    private boolean equalsCipher(Glyph[][] cipher) {
+        // Check the first one to see if we are looking for the inverse cipher
+        boolean inverseCipher = !getGlyph(0, 0).equals(cipher[0][0]);
+
+        for(int i = 0; i < ROWS; i++) {
+            for(int j = 0; j < COLS; j++) {
+                if (getGlyph(i, j).equals(cipher[i][j]) == inverseCipher) return false;
+            }
         }
 
-        return false;
+        return true;
     }
 
     public int getAutonomousScore() {
