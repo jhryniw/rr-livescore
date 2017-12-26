@@ -74,6 +74,8 @@ public class AutonomousFragment extends Fragment implements
     ImageButton btnRedJewel;
     @BindView(R.id.blue_jewel)
     ImageButton btnBlueJewel;
+    @BindView(R.id.safe_zone)
+    ImageButton btnSafeZone;
 
     Pattern glyphPattern = Pattern.compile("^glyph(\\d)(\\d)$");
     Pattern jewelPattern = Pattern.compile("^jewel_(blue|red)$");
@@ -125,6 +127,7 @@ public class AutonomousFragment extends Fragment implements
 
         btnRedJewel.setOnClickListener(this);
         btnBlueJewel.setOnClickListener(this);
+        btnSafeZone.setOnClickListener(this);
         return view;
     }
 
@@ -164,6 +167,14 @@ public class AutonomousFragment extends Fragment implements
                     }
                 }
             jewel.setOnPlatform(!jewel.isOnPlatform());
+        } else if(tag.equals("safe_zone")){
+            if(safeZone){
+                view.setBackgroundResource(R.drawable.safe_zone_blue);
+            } else {
+                view.setBackgroundResource(R.drawable.safe_zone_blue_robot);
+            }
+            safeZone = !safeZone;
+            //todo: scoring for safezone
         }
     }
 
