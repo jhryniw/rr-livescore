@@ -112,14 +112,26 @@ public class Cryptobox {
     }
 
     public int getCompleteRows() {
-        return 0;
+        int completeRows = 0;
+        for (int i = 0; i < ROWS; i++) {
+            if (rowIsFull(i)) completeRows++;
+        }
+        return completeRows;
     }
 
     public int getCompleteColumns() {
-        return 0;
+        int completeCols = 0;
+        for (int i = 0; i < COLS; i++) {
+            if (colIsFull(i)) completeCols++;
+        }
+        return completeCols;
     }
 
     public boolean isCipherComplete() {
+        if (getGlyphCount() != ROWS * COLS) {
+            return false;
+        }
+
         return false;
     }
 
@@ -132,11 +144,17 @@ public class Cryptobox {
     }
 
     private boolean rowIsFull(int row) {
-        return false;
+        for (int i = 0; i < COLS; i++) {
+            if(getGlyph(row, i) == null) return false;
+        }
+        return true;
     }
 
     public boolean colIsFull(int col) {
-        return false;
+        for (int i = 0; i < ROWS; i++) {
+            if(getGlyph(i, col) == null) return false;
+        }
+        return true;
     }
 
     @VisibleForTesting

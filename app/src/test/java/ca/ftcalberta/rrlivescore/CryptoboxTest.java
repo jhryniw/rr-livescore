@@ -74,7 +74,7 @@ public class CryptoboxTest {
         assertEquals(1, cryptobox.getCompleteRows());
 
         // Test the decrement
-        assertEquals(initialScore - 10, cryptobox.getTeleopScore());
+        assertEquals(initialScore - 12, cryptobox.getTeleopScore());
     }
 
     @Test
@@ -87,7 +87,7 @@ public class CryptoboxTest {
         assertEquals(0, cryptobox.getCompleteColumns());
 
         // Test the decrement
-        assertEquals(initialScore - 20, cryptobox.getTeleopScore());
+        assertEquals(initialScore - 22, cryptobox.getTeleopScore());
     }
 
     @Test
