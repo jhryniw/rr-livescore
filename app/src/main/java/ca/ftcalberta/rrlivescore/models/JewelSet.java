@@ -3,36 +3,56 @@ package ca.ftcalberta.rrlivescore.models;
 
 public class JewelSet {
 
-    private Jewel redJewel;
-    private Jewel blueJewel;
+    private static final int JEWEL_SCORE = 30;
 
-    public JewelSet(Jewel redJewel, Jewel blueJewel) {
-        this.redJewel = redJewel;
-        this.blueJewel = blueJewel;
-    }
+    private boolean redIsOnPlatform;
+    private boolean blueIsOnPlatform;
+
+    private int redScore = 0;
+    private int blueScore = 0;
 
     public JewelSet() {
-        this.redJewel = new Jewel(Alliance.RED);
-        this.blueJewel = new Jewel(Alliance.BLUE);
+        redIsOnPlatform = true;
+        blueIsOnPlatform = true;
     }
 
-    public Jewel getRedJewel() {
-        return redJewel;
+    public JewelSet(boolean redOnPlatform, boolean blueOnPlatform) {
+        this.redIsOnPlatform = redOnPlatform;
+        this.blueIsOnPlatform = blueOnPlatform;
+        updateScore();
     }
 
-    public Jewel getBlueJewel() {
-        return blueJewel;
-    }
-
-    public Jewel getJewelByColour(String colour){
-        if(colour.equals("blue")){
-            return getBlueJewel();
-        } else {
-            return getRedJewel();
+    public boolean isOnPlatform(Alliance alliance) {
+        if (alliance.isRed()) {
+            return redIsOnPlatform;
         }
+        else if (alliance.isBlue()) {
+            return blueIsOnPlatform;
+        }
+        return false;
     }
 
-    public int getScoreForAlliance(Alliance alliance) {
-        return 0;
+    public void toggleJewel(Alliance alliance) {
+        if (alliance.isRed()) {
+            redIsOnPlatform = !redIsOnPlatform;
+        }
+        else if (alliance.isBlue()) {
+            blueIsOnPlatform = !blueIsOnPlatform;
+        }
+
+        updateScore();
+    }
+
+    protected void updateScore() {
+        redScore = redIsOnPlatform && !blueIsOnPlatform ? JEWEL_SCORE : 0;
+        blueScore = blueIsOnPlatform && !redIsOnPlatform ? JEWEL_SCORE : 0;
+    }
+
+    public int getRedScore() {
+        return redScore;
+    }
+
+    public int getBlueScore() {
+        return blueScore;
     }
 }

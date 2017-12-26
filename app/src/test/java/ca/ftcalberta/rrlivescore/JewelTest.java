@@ -5,58 +5,46 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ca.ftcalberta.rrlivescore.models.Alliance;
-import ca.ftcalberta.rrlivescore.models.Jewel;
 import ca.ftcalberta.rrlivescore.models.JewelSet;
 
 import static junit.framework.Assert.assertEquals;
 
 public class JewelTest {
 
-    private Jewel blueJewel;
-    private Jewel redJewel;
     private JewelSet jewelSet;
 
     @Before
     public void setUp() throws Exception {
-        blueJewel = new Jewel(Alliance.BLUE);
-        redJewel = new Jewel(Alliance.RED);
-
-        jewelSet = new JewelSet(redJewel, blueJewel);
+        jewelSet = new JewelSet();
     }
 
     @Test
     public void bothOnPlatform() throws Exception {
-        blueJewel.setOnPlatform(true);
-        redJewel.setOnPlatform(true);
-
-        assertEquals(0, jewelSet.getScoreForAlliance(Alliance.BLUE));
-        assertEquals(0, jewelSet.getScoreForAlliance(Alliance.RED));
+        assertEquals(0, jewelSet.getBlueScore());
+        assertEquals(0, jewelSet.getRedScore());
     }
 
     @Test
     public void blueOffPlatform() throws Exception {
-        blueJewel.setOnPlatform(false);
-        redJewel.setOnPlatform(true);
+        jewelSet = new JewelSet(true, false);
 
-        assertEquals(0, jewelSet.getScoreForAlliance(Alliance.BLUE));
-        assertEquals(30, jewelSet.getScoreForAlliance(Alliance.RED));
+        assertEquals(0, jewelSet.getBlueScore());
+        assertEquals(30, jewelSet.getRedScore());
     }
 
     @Test
     public void redOffPlatform() throws Exception {
-        blueJewel.setOnPlatform(true);
-        redJewel.setOnPlatform(false);
+        jewelSet = new JewelSet(false, true);
 
-        assertEquals(30, jewelSet.getScoreForAlliance(Alliance.BLUE));
-        assertEquals(0, jewelSet.getScoreForAlliance(Alliance.RED));
+        assertEquals(30, jewelSet.getBlueScore());
+        assertEquals(0, jewelSet.getRedScore());
     }
 
     @Test
     public void bothOffPlatform() throws Exception {
-        blueJewel.setOnPlatform(false);
-        redJewel.setOnPlatform(false);
+        jewelSet = new JewelSet(false, false);
 
-        assertEquals(0, jewelSet.getScoreForAlliance(Alliance.BLUE));
-        assertEquals(0, jewelSet.getScoreForAlliance(Alliance.RED));
+        assertEquals(0, jewelSet.getBlueScore());
+        assertEquals(0, jewelSet.getRedScore());
     }
 }

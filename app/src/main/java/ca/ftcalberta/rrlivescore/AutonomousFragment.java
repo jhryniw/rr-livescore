@@ -2,7 +2,6 @@ package ca.ftcalberta.rrlivescore;
 
 
 import android.graphics.Color;
-import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,23 +15,16 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ca.ftcalberta.rrlivescore.data.SyncedCryptobox;
+import ca.ftcalberta.rrlivescore.data.SyncedJewelSet;
 import ca.ftcalberta.rrlivescore.models.Alliance;
 import ca.ftcalberta.rrlivescore.models.Cryptobox;
 import ca.ftcalberta.rrlivescore.models.Glyph;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import butterknife.BindView;
-import ca.ftcalberta.rrlivescore.models.Jewel;
 import ca.ftcalberta.rrlivescore.models.JewelSet;
 import ca.ftcalberta.rrlivescore.models.OpMode;
-import ca.ftcalberta.rrlivescore.models.Relic;
 import ca.ftcalberta.rrlivescore.models.Settings;
 
 public class AutonomousFragment extends Fragment implements
@@ -74,6 +66,8 @@ public class AutonomousFragment extends Fragment implements
     ImageButton btnRedJewel;
     @BindView(R.id.blue_jewel)
     ImageButton btnBlueJewel;
+    @BindView(R.id.safe_zone)
+    ImageButton btnSafeZone;
 
     Pattern glyphPattern = Pattern.compile("^glyph(\\d)(\\d)$");
     Pattern jewelPattern = Pattern.compile("^jewel_(blue|red)$");
@@ -94,7 +88,7 @@ public class AutonomousFragment extends Fragment implements
 
         Settings appSettings = Settings.getInstance();
         this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.AUTONOMOUS, appSettings.getCryptoboxId());
-        this.mJewelSet = new JewelSet();
+        this.mJewelSet = new SyncedJewelSet(appSettings.getAlliance(), appSettings.getCryptoboxId());
 
         ButterKnife.bind(this, view);
         btnGlyph00.setOnClickListener(this);
@@ -125,6 +119,7 @@ public class AutonomousFragment extends Fragment implements
 
         btnRedJewel.setOnClickListener(this);
         btnBlueJewel.setOnClickListener(this);
+        btnSafeZone.setOnClickListener(this);
         return view;
     }
 
@@ -152,18 +147,27 @@ public class AutonomousFragment extends Fragment implements
                 view.setBackgroundColor(color);
             }
         } else if(jewelMatcher.matches()){
-            Jewel jewel = mJewelSet.getJewelByColour(jewelMatcher.group(1));
+            Alliance jewelAlliance = Alliance.fromString(jewelMatcher.group(1));
 
-            if(jewel.isOnPlatform()){
-                    view.setBackgroundColor(Color.TRANSPARENT);
+            if(mJewelSet.isOnPlatform(jewelAlliance)){
+                view.setBackgroundColor(Color.TRANSPARENT);
+            }
+            else {
+                if(jewelAlliance.isRed()){
+                    view.setBackgroundResource(R.drawable.jewel_red);
                 } else {
-                    if(jewel.getAlliance() == Alliance.RED){
-                        view.setBackgroundResource(R.drawable.jewel_red);
-                    }else {
-                        view.setBackgroundResource(R.drawable.jewel_blue);
-                    }
+                    view.setBackgroundResource(R.drawable.jewel_blue);
                 }
-            jewel.setOnPlatform(!jewel.isOnPlatform());
+            }
+            mJewelSet.toggleJewel(jewelAlliance);
+        } else if(tag.equals("safe_zone")){
+            if(safeZone){
+                view.setBackgroundResource(R.drawable.safe_zone_blue);
+            } else {
+                view.setBackgroundResource(R.drawable.safe_zone_blue_robot);
+            }
+            safeZone = !safeZone;
+            //todo: scoring for safezone
         }
     }
 
