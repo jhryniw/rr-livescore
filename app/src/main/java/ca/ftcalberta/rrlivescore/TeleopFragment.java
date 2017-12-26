@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.util.regex.Matcher;
@@ -49,6 +50,7 @@ public class TeleopFragment extends Fragment implements
     @BindView(R.id.zone_1) Button btnZone1;
     @BindView(R.id.zone_2) Button btnZone2;
     @BindView(R.id.zone_3) Button btnZone3;
+    @BindView(R.id.balance) ImageButton btnBalance;
 
     Pattern glyphPattern = Pattern.compile("^glyph(\\d)(\\d)$");
     Pattern zonePattern = Pattern.compile("^zone_(\\d)$");
@@ -101,7 +103,7 @@ public class TeleopFragment extends Fragment implements
         btnZone1.setOnClickListener(this);
         btnZone2.setOnClickListener(this);
         btnZone3.setOnClickListener(this);
-
+        btnBalance.setOnClickListener(this);
         return view;
     }
 
@@ -150,8 +152,14 @@ public class TeleopFragment extends Fragment implements
                 view.setBackgroundResource(R.drawable.relic_black_tipped);
             }
             mRelic.setZone(zone);
-        } else if(tag == "balance"){
-
+        } else if(tag.equals("balance")){
+            if(isBalanced){
+                view.setBackgroundResource(R.drawable.no_balance_blue);
+            } else {
+                view.setBackgroundResource(R.drawable.balance_blue);
+            }
+            isBalanced = !isBalanced;
+            //todo: add scoring for balance
         }
 
     }
