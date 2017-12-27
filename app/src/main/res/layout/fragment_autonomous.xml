@@ -33,12 +33,14 @@
         android:layout_height="73dp"
         android:layout_marginEnd="32dp"
         android:layout_marginTop="4dp"
-        android:background="?safe_zone"
         android:contentDescription="@string/safe_zone_button"
+        android:scaleType="fitXY"
         android:tag="@string/safe_zone"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="@+id/jewel_set"
         app:layout_constraintEnd_toEndOf="@+id/cryptobox"
-        app:layout_constraintTop_toTopOf="@+id/jewel_set" />
+        app:layout_constraintTop_toTopOf="@+id/jewel_set"
+        app:srcCompat="?safe_zone" />
 
     <ImageButton
         android:id="@+id/key0"
