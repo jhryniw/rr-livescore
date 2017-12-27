@@ -76,6 +76,7 @@ public class ScoringActivity extends AppCompatActivity implements
         Alliance currentAlliance = Settings.getInstance().getAlliance();
         if (currentAlliance != alliance) {
             alliance = currentAlliance;
+            reset();
             finish();
             startActivity(getIntent());
         }
@@ -138,22 +139,20 @@ public class ScoringActivity extends AppCompatActivity implements
                     viewPager.setCurrentItem(AUTO_FRAGMENT_ID);
                 }
                 reset();
-                break;
+                return true;
             case R.id.action_settings:
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
                 startActivity(settingsIntent);
-                break;
+                return true;
             case R.id.action_logout:
                 CurrentUser.signOut();
                 Intent backToLogin = new Intent(this, LoginActivity.class);
                 startActivity(backToLogin);
                 finish();
-                break;
+                return true;
             default:
-                super.onOptionsItemSelected(item);
+                return super.onOptionsItemSelected(item);
         }
-
-        return true;
     }
 
     public void reset() {
