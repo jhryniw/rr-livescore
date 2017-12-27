@@ -2,7 +2,6 @@ package ca.ftcalberta.rrlivescore;
 
 
 //import android.graphics.Color;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -20,18 +18,15 @@ import java.util.regex.Pattern;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ca.ftcalberta.rrlivescore.data.SyncedCryptobox;
-import ca.ftcalberta.rrlivescore.models.Alliance;
 import ca.ftcalberta.rrlivescore.models.Cryptobox;
 import ca.ftcalberta.rrlivescore.models.Glyph;
 import ca.ftcalberta.rrlivescore.models.Relic;
 import ca.ftcalberta.rrlivescore.models.OpMode;
 import ca.ftcalberta.rrlivescore.models.Settings;
-import ca.ftcalberta.rrlivescore.utils.Resetable;
 
 public class TeleopFragment extends Fragment implements
         View.OnClickListener,
-        View.OnLongClickListener,
-        Resetable {
+        View.OnLongClickListener {
 
     private Cryptobox mCryptobox;
     private Relic mRelic;
@@ -178,13 +173,14 @@ public class TeleopFragment extends Fragment implements
         return false;
     }
 
-    @Override
     public void reset() {
         // Reset cryptobox
-        mCryptobox.reset();
+        if (mCryptobox != null) {
+            mCryptobox.reset();
 
-        for(Button glyphButton : glyphButtons) {
-            glyphButton.setBackgroundResource(R.drawable.glyph_button);
+            for (Button glyphButton : glyphButtons) {
+                glyphButton.setBackgroundResource(R.drawable.glyph_button);
+            }
         }
     }
 }

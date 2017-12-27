@@ -27,12 +27,10 @@ import android.widget.ImageButton;
 import ca.ftcalberta.rrlivescore.models.JewelSet;
 import ca.ftcalberta.rrlivescore.models.OpMode;
 import ca.ftcalberta.rrlivescore.models.Settings;
-import ca.ftcalberta.rrlivescore.utils.Resetable;
 
 public class AutonomousFragment extends Fragment implements
         View.OnClickListener,
-        View.OnLongClickListener,
-        Resetable {
+        View.OnLongClickListener {
 
     private Cryptobox mCryptobox;
     private JewelSet mJewelSet;
@@ -116,6 +114,9 @@ public class AutonomousFragment extends Fragment implements
 
         btnRedJewel.setOnClickListener(this);
         btnBlueJewel.setOnClickListener(this);
+        btnRedJewel.setSelected(true);
+        btnBlueJewel.setSelected(true);
+
         btnSafeZone.setOnClickListener(this);
         return view;
     }
@@ -142,22 +143,13 @@ public class AutonomousFragment extends Fragment implements
                 int color = getResources().getColor(R.color.glyphGray);
                 view.setBackgroundColor(color);
             }
-        } else if(jewelMatcher.matches()){
+        }
+        else if(jewelMatcher.matches()){
             Alliance jewelAlliance = Alliance.fromString(jewelMatcher.group(1));
             mJewelSet.toggleJewel(jewelAlliance);
-
-            if(!mJewelSet.isOnPlatform(jewelAlliance)){
-                view.setBackgroundColor(Color.TRANSPARENT);
-            }
-            else {
-                if(jewelAlliance.isRed()){
-                    view.setBackgroundResource(R.drawable.jewel_red);
-                } else {
-                    view.setBackgroundResource(R.drawable.jewel_blue);
-                }
-            }
-
-        } else if(tag.equals("safe_zone")){
+            view.setSelected(!view.isSelected());
+        }
+        else if(tag.equals("safe_zone")){
             if(safeZone){
                 view.setBackgroundResource(R.drawable.safe_zone_blue);
             } else {
@@ -184,7 +176,6 @@ public class AutonomousFragment extends Fragment implements
         return false;
     }
 
-    @Override
     public void reset() {
         // Reset cryptobox
 

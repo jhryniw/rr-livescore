@@ -1,9 +1,7 @@
 package ca.ftcalberta.rrlivescore.models;
 
 
-import ca.ftcalberta.rrlivescore.utils.Resetable;
-
-public class JewelSet implements Resetable {
+public class JewelSet {
 
     private static final int JEWEL_SCORE = 30;
 
@@ -58,7 +56,6 @@ public class JewelSet implements Resetable {
         return blueScore;
     }
 
-    @Override
     public void reset() {
         redIsOnPlatform = true;
         blueIsOnPlatform = true;

@@ -3,9 +3,7 @@ package ca.ftcalberta.rrlivescore.models;
 
 import android.support.annotation.VisibleForTesting;
 
-import ca.ftcalberta.rrlivescore.utils.Resetable;
-
-public class Cryptobox implements Resetable {
+public class Cryptobox {
     public static final int ROWS = 4;
     public static final int COLS = 3;
 
@@ -196,7 +194,6 @@ public class Cryptobox implements Resetable {
         return true;
     }
 
-    @Override
     public void reset() {
         for (int i = 0; i < ROWS; i++) {
             box[i] = new Glyph[COLS];

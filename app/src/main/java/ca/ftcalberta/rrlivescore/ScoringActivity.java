@@ -4,28 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.transition.Slide;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ca.ftcalberta.rrlivescore.models.Alliance;
 import ca.ftcalberta.rrlivescore.models.CurrentUser;
 import ca.ftcalberta.rrlivescore.models.Settings;
-import ca.ftcalberta.rrlivescore.utils.Resetable;
 
 public class ScoringActivity extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener,
-        ViewPager.OnPageChangeListener,
-        Resetable {
+        ViewPager.OnPageChangeListener {
 
     private static final int AUTO_FRAGMENT_ID = 0;
     private static final int TELE_FRAGMENT_ID = 1;
@@ -40,8 +33,8 @@ public class ScoringActivity extends AppCompatActivity implements
 
     private Alliance alliance;
 
-    private Resetable autoFragment;
-    private Resetable teleFragment;
+    private AutonomousFragment autonomousFragment;
+    private TeleopFragment teleopFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,16 +55,13 @@ public class ScoringActivity extends AppCompatActivity implements
 
         ButterKnife.bind(this);
 
-        Fragment autonomousFragment = new AutonomousFragment();
-        Fragment teleopFragment = new TeleopFragment();
+        autonomousFragment = new AutonomousFragment();
+        teleopFragment = new TeleopFragment();
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(autonomousFragment, "Autonomous");
         adapter.addFragment(teleopFragment, "Teleop");
         setTitle("Autonomous");
-
-        autoFragment = (Resetable) autonomousFragment;
-        teleFragment = (Resetable) teleopFragment;
 
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(this);
@@ -165,9 +155,8 @@ public class ScoringActivity extends AppCompatActivity implements
         return true;
     }
 
-    @Override
     public void reset() {
-        autoFragment.reset();
-        teleFragment.reset();
+        autonomousFragment.reset();
+        teleopFragment.reset();
     }
 }
