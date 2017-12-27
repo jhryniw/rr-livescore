@@ -14,6 +14,7 @@
         <!-- Login Activity -->
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,11 +25,13 @@
 
         <activity
             android:name=".ScoringActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name">
         </activity>
 
         <activity
             android:name=".SettingsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/settings">
         </activity>
 

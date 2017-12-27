@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ca.ftcalberta.rrlivescore.data.ScoreButton;
 import ca.ftcalberta.rrlivescore.data.SyncedCryptobox;
 import ca.ftcalberta.rrlivescore.data.SyncedJewelSet;
 import ca.ftcalberta.rrlivescore.models.Alliance;
@@ -34,6 +35,7 @@ public class AutonomousFragment extends Fragment implements
 
     private Cryptobox mCryptobox;
     private JewelSet mJewelSet;
+    private ScoreButton scoreSafeZone;
     private boolean safeZone = false;
 
     private ArrayList<Button> glyphButtons;
@@ -84,6 +86,7 @@ public class AutonomousFragment extends Fragment implements
         Settings appSettings = Settings.getInstance();
         this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.AUTONOMOUS, appSettings.getCryptoboxId());
         this.mJewelSet = new SyncedJewelSet(appSettings.getAlliance(), appSettings.getCryptoboxId());
+        this.scoreSafeZone = new ScoreButton("safe_zone");
     }
 
     @Nullable
@@ -156,7 +159,7 @@ public class AutonomousFragment extends Fragment implements
                 view.setBackgroundResource(R.drawable.safe_zone_blue_robot);
             }
             safeZone = !safeZone;
-            //todo: scoring for safezone
+            scoreSafeZone.updateScore(tag, safeZone ? 10 : 0);
         }
     }
 
