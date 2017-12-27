@@ -32,6 +32,7 @@ public class ScoringActivity extends AppCompatActivity implements
     ViewPagerAdapter adapter;
 
     private Alliance alliance;
+    private int cryptoboxId;
 
     private AutonomousFragment autonomousFragment;
     private TeleopFragment teleopFragment;
@@ -40,8 +41,11 @@ public class ScoringActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        alliance = Settings.getInstance().getAlliance();
-        if (alliance == Alliance.RED) {
+        Settings settings = Settings.getInstance();
+        alliance = settings.getAlliance();
+        cryptoboxId = settings.getCryptoboxId();
+
+        if (alliance.isRed()) {
             setTheme(R.style.AppTheme_Red);
         }
         else {
@@ -73,9 +77,11 @@ public class ScoringActivity extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
 
-        Alliance currentAlliance = Settings.getInstance().getAlliance();
-        if (currentAlliance != alliance) {
-            alliance = currentAlliance;
+        Settings currentSettings = Settings.getInstance();
+        if (currentSettings.getAlliance() != alliance
+                || currentSettings.getCryptoboxId() != cryptoboxId) {
+            alliance = currentSettings.getAlliance();
+            cryptoboxId = currentSettings.getCryptoboxId();
             reset();
             finish();
             startActivity(getIntent());
