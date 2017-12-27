@@ -29,11 +29,11 @@
 
     <ImageButton
         android:id="@+id/safe_zone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:layout_width="91dp"
+        android:layout_height="73dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/safe_zone_blue"
+        android:layout_marginTop="4dp"
+        android:background="?safe_zone"
         android:contentDescription="@string/safe_zone_button"
         android:tag="@string/safe_zone"
         app:layout_constraintBottom_toBottomOf="@+id/jewel_set"

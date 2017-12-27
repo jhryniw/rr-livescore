@@ -121,6 +121,8 @@ public class AutonomousFragment extends Fragment implements
         btnBlueJewel.setSelected(true);
 
         btnSafeZone.setOnClickListener(this);
+        btnSafeZone.setSelected(false);
+
         return view;
     }
 
@@ -153,12 +155,8 @@ public class AutonomousFragment extends Fragment implements
             view.setSelected(!view.isSelected());
         }
         else if(tag.equals("safe_zone")){
-            if(safeZone){
-                view.setBackgroundResource(R.drawable.safe_zone_blue);
-            } else {
-                view.setBackgroundResource(R.drawable.safe_zone_blue_robot);
-            }
             safeZone = !safeZone;
+            btnSafeZone.setSelected(!btnSafeZone.isSelected());
             scoreSafeZone.updateScore(tag, safeZone ? 10 : 0);
         }
     }
