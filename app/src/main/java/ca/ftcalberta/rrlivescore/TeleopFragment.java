@@ -62,16 +62,16 @@ public class TeleopFragment extends Fragment implements
         if (savedInstanceState != null) {
             return;
         }
+
+        Settings appSettings = Settings.getInstance();
+        this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.TELEOP, appSettings.getCryptoboxId());
+        this.mRelic = new Relic(appSettings.getAlliance());
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_teleop, container, false);
-
-        Settings appSettings = Settings.getInstance();
-        this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.TELEOP, appSettings.getCryptoboxId());
-        this.mRelic = new Relic(appSettings.getAlliance());
 
         ButterKnife.bind(this, view);
 

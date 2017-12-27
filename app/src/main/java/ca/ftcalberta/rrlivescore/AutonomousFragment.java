@@ -80,16 +80,16 @@ public class AutonomousFragment extends Fragment implements
         if (savedInstanceState != null) {
             return;
         }
+
+        Settings appSettings = Settings.getInstance();
+        this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.AUTONOMOUS, appSettings.getCryptoboxId());
+        this.mJewelSet = new SyncedJewelSet(appSettings.getAlliance(), appSettings.getCryptoboxId());
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_autonomous, container, false);
-
-        Settings appSettings = Settings.getInstance();
-        this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.AUTONOMOUS, appSettings.getCryptoboxId());
-        this.mJewelSet = new SyncedJewelSet(appSettings.getAlliance(), appSettings.getCryptoboxId());
 
         ButterKnife.bind(this, view);
 
@@ -128,7 +128,7 @@ public class AutonomousFragment extends Fragment implements
         Matcher glyphMatcher = glyphPattern.matcher(tag);
         Matcher jewelMatcher = jewelPattern.matcher(tag);
 
-        if (glyphMatcher.matches()) {
+        if (glyphMatcher.matches() && mCryptobox != null) {
             int row = Integer.parseInt(glyphMatcher.group(1));
             int col = Integer.parseInt(glyphMatcher.group(2));
 
@@ -144,7 +144,7 @@ public class AutonomousFragment extends Fragment implements
                 view.setBackgroundColor(color);
             }
         }
-        else if(jewelMatcher.matches()){
+        else if(jewelMatcher.matches() && mJewelSet != null){
             Alliance jewelAlliance = Alliance.fromString(jewelMatcher.group(1));
             mJewelSet.toggleJewel(jewelAlliance);
             view.setSelected(!view.isSelected());
@@ -188,8 +188,8 @@ public class AutonomousFragment extends Fragment implements
 
         if (mJewelSet != null) {
             mJewelSet.reset();
-            btnRedJewel.setBackgroundResource(R.drawable.jewel_red);
-            btnRedJewel.setBackgroundResource(R.drawable.jewel_blue);
+            btnRedJewel.setSelected(true);
+            btnRedJewel.setSelected(true);
         }
     }
 }

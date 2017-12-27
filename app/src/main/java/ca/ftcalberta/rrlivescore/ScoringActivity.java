@@ -76,7 +76,8 @@ public class ScoringActivity extends AppCompatActivity implements
         Alliance currentAlliance = Settings.getInstance().getAlliance();
         if (currentAlliance != alliance) {
             alliance = currentAlliance;
-            recreate();
+            finish();
+            startActivity(getIntent());
         }
     }
 

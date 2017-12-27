@@ -15,10 +15,9 @@ public class SyncedJewelSet extends JewelSet {
     private int jewelSetId;
 
     public SyncedJewelSet(Alliance alliance, int id) {
-        jewelSetRef = getRootRef();
-
         int allianceOffset = alliance.isRed() ? 2 : 0;
         jewelSetId = id + allianceOffset;
+        jewelSetRef = getRootRef();
     }
 
     @Override
