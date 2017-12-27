@@ -42,7 +42,7 @@ public class Cryptobox {
             };
 
     private Alliance alliance;
-    private int keyColumn = -1;
+    private int keyColumn = 0;
     private Glyph[][] box = new Glyph[ROWS][COLS];
 
     private boolean isFirstGlyph = true;
@@ -72,7 +72,13 @@ public class Cryptobox {
     }
 
     public void setKeyColumn(int keyColumn) {
-        this.keyColumn = keyColumn;
+        if (keyColumn >= 0 && keyColumn <= 2) {
+            this.keyColumn = keyColumn;
+        }
+    }
+
+    public boolean isFirstGlyphPlaced() {
+        return !isFirstGlyph;
     }
 
     public void toggleGlyph(int row, int col) {
@@ -195,6 +201,9 @@ public class Cryptobox {
     }
 
     public void reset() {
+        keyColumn = 0;
+        isFirstGlyph = true;
+
         for (int i = 0; i < ROWS; i++) {
             box[i] = new Glyph[COLS];
         }
