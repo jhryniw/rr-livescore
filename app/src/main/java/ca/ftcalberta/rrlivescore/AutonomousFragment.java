@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,6 +37,8 @@ public class AutonomousFragment extends Fragment implements
     private JewelSet mJewelSet;
     private ScoreButton scoreSafeZone;
     private boolean safeZone = false;
+
+    private ArrayList<Button> glyphButtons;
 
     @BindView(R.id.glyph00)
     Button btnGlyph00;
@@ -79,6 +82,11 @@ public class AutonomousFragment extends Fragment implements
         if (savedInstanceState != null) {
             return;
         }
+
+        Settings appSettings = Settings.getInstance();
+        this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.AUTONOMOUS, appSettings.getCryptoboxId());
+        this.mJewelSet = new SyncedJewelSet(appSettings.getAlliance(), appSettings.getCryptoboxId());
+        this.scoreSafeZone = new ScoreButton("safe_zone");
     }
 
     @Nullable
@@ -86,44 +94,35 @@ public class AutonomousFragment extends Fragment implements
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_autonomous, container, false);
 
-        Settings appSettings = Settings.getInstance();
-        this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.AUTONOMOUS, appSettings.getCryptoboxId());
-        this.mJewelSet = new SyncedJewelSet(appSettings.getAlliance(), appSettings.getCryptoboxId());
-        this.scoreSafeZone = new ScoreButton("safe_zone");
-
         ButterKnife.bind(this, view);
-        btnGlyph00.setOnClickListener(this);
-        btnGlyph01.setOnClickListener(this);
-        btnGlyph02.setOnClickListener(this);
-        btnGlyph10.setOnClickListener(this);
-        btnGlyph11.setOnClickListener(this);
-        btnGlyph12.setOnClickListener(this);
-        btnGlyph20.setOnClickListener(this);
-        btnGlyph21.setOnClickListener(this);
-        btnGlyph22.setOnClickListener(this);
-        btnGlyph30.setOnClickListener(this);
-        btnGlyph31.setOnClickListener(this);
-        btnGlyph32.setOnClickListener(this);
 
-        btnGlyph00.setOnLongClickListener(this);
-        btnGlyph01.setOnLongClickListener(this);
-        btnGlyph02.setOnLongClickListener(this);
-        btnGlyph10.setOnLongClickListener(this);
-        btnGlyph11.setOnLongClickListener(this);
-        btnGlyph12.setOnLongClickListener(this);
-        btnGlyph20.setOnLongClickListener(this);
-        btnGlyph21.setOnLongClickListener(this);
-        btnGlyph22.setOnLongClickListener(this);
-        btnGlyph30.setOnLongClickListener(this);
-        btnGlyph31.setOnLongClickListener(this);
-        btnGlyph32.setOnLongClickListener(this);
+        glyphButtons = new ArrayList<>(12);
+        glyphButtons.add(btnGlyph00);
+        glyphButtons.add(btnGlyph01);
+        glyphButtons.add(btnGlyph02);
+        glyphButtons.add(btnGlyph10);
+        glyphButtons.add(btnGlyph11);
+        glyphButtons.add(btnGlyph12);
+        glyphButtons.add(btnGlyph20);
+        glyphButtons.add(btnGlyph21);
+        glyphButtons.add(btnGlyph22);
+        glyphButtons.add(btnGlyph30);
+        glyphButtons.add(btnGlyph31);
+        glyphButtons.add(btnGlyph32);
+
+        for(Button glyphButton : glyphButtons) {
+            glyphButton.setOnClickListener(this);
+            glyphButton.setOnLongClickListener(this);
+        }
 
         btnRedJewel.setOnClickListener(this);
         btnBlueJewel.setOnClickListener(this);
+        btnRedJewel.setSelected(true);
+        btnBlueJewel.setSelected(true);
+
         btnSafeZone.setOnClickListener(this);
         return view;
     }
-
 
     @Override
     public void onClick(View view) {
@@ -132,7 +131,7 @@ public class AutonomousFragment extends Fragment implements
         Matcher glyphMatcher = glyphPattern.matcher(tag);
         Matcher jewelMatcher = jewelPattern.matcher(tag);
 
-        if (glyphMatcher.matches()) {
+        if (glyphMatcher.matches() && mCryptobox != null) {
             int row = Integer.parseInt(glyphMatcher.group(1));
             int col = Integer.parseInt(glyphMatcher.group(2));
 
@@ -147,21 +146,13 @@ public class AutonomousFragment extends Fragment implements
                 int color = getResources().getColor(R.color.glyphGray);
                 view.setBackgroundColor(color);
             }
-        } else if(jewelMatcher.matches()){
+        }
+        else if(jewelMatcher.matches() && mJewelSet != null){
             Alliance jewelAlliance = Alliance.fromString(jewelMatcher.group(1));
-
-            if(mJewelSet.isOnPlatform(jewelAlliance)){
-                view.setBackgroundColor(Color.TRANSPARENT);
-            }
-            else {
-                if(jewelAlliance.isRed()){
-                    view.setBackgroundResource(R.drawable.jewel_red);
-                } else {
-                    view.setBackgroundResource(R.drawable.jewel_blue);
-                }
-            }
             mJewelSet.toggleJewel(jewelAlliance);
-        } else if(tag.equals("safe_zone")){
+            view.setSelected(!view.isSelected());
+        }
+        else if(tag.equals("safe_zone")){
             if(safeZone){
                 view.setBackgroundResource(R.drawable.safe_zone_blue);
             } else {
@@ -186,5 +177,22 @@ public class AutonomousFragment extends Fragment implements
             return true;
         }
         return false;
+    }
+
+    public void reset() {
+        // Reset cryptobox
+
+        if (mCryptobox != null) {
+            mCryptobox.reset();
+            for (Button glyphButton : glyphButtons) {
+                glyphButton.setBackgroundResource(R.drawable.glyph_button);
+            }
+        }
+
+        if (mJewelSet != null) {
+            mJewelSet.reset();
+            btnRedJewel.setSelected(true);
+            btnRedJewel.setSelected(true);
+        }
     }
 }

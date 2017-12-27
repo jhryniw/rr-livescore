@@ -15,10 +15,9 @@ public class SyncedJewelSet extends JewelSet {
     private int jewelSetId;
 
     public SyncedJewelSet(Alliance alliance, int id) {
-        jewelSetRef = getRootRef();
-
         int allianceOffset = alliance.isRed() ? 2 : 0;
         jewelSetId = id + allianceOffset;
+        jewelSetRef = getRootRef();
     }
 
     @Override
@@ -35,6 +34,17 @@ public class SyncedJewelSet extends JewelSet {
 
         jewelSetRef.child("blue-score").setValue(getBlueScore());
         jewelSetRef.child("red-score").setValue(getRedScore());
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+
+        jewelSetRef.child(getJewelId(Alliance.BLUE))
+                .setValue(isOnPlatform(Alliance.BLUE));
+
+        jewelSetRef.child(getJewelId(Alliance.RED))
+                .setValue(isOnPlatform(Alliance.RED));
     }
 
     private DatabaseReference getRootRef() {

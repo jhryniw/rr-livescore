@@ -1,18 +1,17 @@
 package ca.ftcalberta.rrlivescore;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
-import android.transition.Slide;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +23,9 @@ public class ScoringActivity extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener,
         ViewPager.OnPageChangeListener {
 
+    private static final int AUTO_FRAGMENT_ID = 0;
+    private static final int TELE_FRAGMENT_ID = 1;
+
     @BindView(R.id.fragment_container)
     ViewPager viewPager;
 
@@ -33,13 +35,20 @@ public class ScoringActivity extends AppCompatActivity implements
     ViewPagerAdapter adapter;
 
     private Alliance alliance;
+    private int cryptoboxId;
+
+    private AutonomousFragment autonomousFragment;
+    private TeleopFragment teleopFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        alliance = Settings.getInstance().getAlliance();
-        if (alliance == Alliance.RED) {
+        Settings settings = Settings.getInstance();
+        alliance = settings.getAlliance();
+        cryptoboxId = settings.getCryptoboxId();
+
+        if (alliance.isRed()) {
             setTheme(R.style.AppTheme_Red);
         }
         else {
@@ -53,9 +62,12 @@ public class ScoringActivity extends AppCompatActivity implements
 
         ButterKnife.bind(this);
 
+        autonomousFragment = new AutonomousFragment();
+        teleopFragment = new TeleopFragment();
+
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new AutonomousFragment(), "Autonomous");
-        adapter.addFragment(new TeleopFragment(), "Teleop");
+        adapter.addFragment(autonomousFragment, "Autonomous");
+        adapter.addFragment(teleopFragment, "Teleop");
         setTitle("Autonomous");
 
         viewPager.setAdapter(adapter);
@@ -68,10 +80,14 @@ public class ScoringActivity extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
 
-        Alliance currentAlliance = Settings.getInstance().getAlliance();
-        if (currentAlliance != alliance) {
-            alliance = currentAlliance;
-            recreate();
+        Settings currentSettings = Settings.getInstance();
+        if (currentSettings.getAlliance() != alliance
+                || currentSettings.getCryptoboxId() != cryptoboxId) {
+            alliance = currentSettings.getAlliance();
+            cryptoboxId = currentSettings.getCryptoboxId();
+            reset();
+            finish();
+            startActivity(getIntent());
         }
     }
 
@@ -80,13 +96,13 @@ public class ScoringActivity extends AppCompatActivity implements
 
         switch (item.getItemId()) {
             case R.id.navigation_autonomous:
-                if (viewPager.getCurrentItem() != 0) {
-                    viewPager.setCurrentItem(0);
+                if (viewPager.getCurrentItem() != AUTO_FRAGMENT_ID) {
+                    viewPager.setCurrentItem(AUTO_FRAGMENT_ID);
                 }
                 return true;
             case R.id.navigation_teleop:
-                if (viewPager.getCurrentItem() != 1) {
-                    viewPager.setCurrentItem(1);
+                if (viewPager.getCurrentItem() != TELE_FRAGMENT_ID) {
+                    viewPager.setCurrentItem(TELE_FRAGMENT_ID);
                 }
                 return true;
         }
@@ -101,13 +117,13 @@ public class ScoringActivity extends AppCompatActivity implements
     @Override
     public void onPageSelected(int position) {
         switch (position) {
-            case 0:
+            case AUTO_FRAGMENT_ID:
                 navigation.setSelectedItemId(R.id.navigation_autonomous);
-                setTitle(adapter.getPageTitle(0));
+                setTitle(adapter.getPageTitle(AUTO_FRAGMENT_ID));
                 break;
-            case 1:
+            case TELE_FRAGMENT_ID:
                 navigation.setSelectedItemId(R.id.navigation_teleop);
-                setTitle(adapter.getPageTitle(1));
+                setTitle(adapter.getPageTitle(TELE_FRAGMENT_ID));
                 break;
         }
     }
@@ -126,6 +142,9 @@ public class ScoringActivity extends AppCompatActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_reset:
+                confirmReset();
+                return true;
             case R.id.action_settings:
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
                 startActivity(settingsIntent);
@@ -139,5 +158,37 @@ public class ScoringActivity extends AppCompatActivity implements
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    /**
+     * Confirm before resetting
+     */
+    private void confirmReset() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Confirm Reset?");
+        alert.setMessage("You will lose the currently tracked state.");
+        alert.setPositiveButton("Reset", new Dialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (viewPager.getCurrentItem() == TELE_FRAGMENT_ID) {
+                    viewPager.setCurrentItem(AUTO_FRAGMENT_ID);
+                }
+                reset();
+                dialog.dismiss();
+            }
+        });
+        alert.setNegativeButton("Cancel", new Dialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
+    }
+
+    public void reset() {
+        autonomousFragment.reset();
+        teleopFragment.reset();
     }
 }

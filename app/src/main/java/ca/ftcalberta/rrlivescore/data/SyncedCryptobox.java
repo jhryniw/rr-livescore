@@ -23,7 +23,7 @@ public class SyncedCryptobox extends Cryptobox {
         this.cryptoboxId = id;
         this.opMode = opMode;
         this.cryptoboxRef = getRootRef();
-        cryptoboxRef.setValue(null);
+        cryptoboxRef.removeValue();
     }
 
     public SyncedCryptobox(Alliance alliance, OpMode opMode, int keyColumn, Glyph[][] box, int id) {
@@ -32,7 +32,7 @@ public class SyncedCryptobox extends Cryptobox {
         this.cryptoboxId = id;
         this.opMode = opMode;
         this.cryptoboxRef = getRootRef();
-        cryptoboxRef.setValue(null);
+        cryptoboxRef.removeValue();
     }
 
     @Override
@@ -48,7 +48,7 @@ public class SyncedCryptobox extends Cryptobox {
         super.removeGlyph(row, col);
 
         cryptoboxRef.child(getGlyphId(row, col))
-                .setValue(null);
+                .removeValue();
     }
 
     @Override
@@ -60,6 +60,15 @@ public class SyncedCryptobox extends Cryptobox {
         }
         else {
             cryptoboxRef.child("score").setValue(getTeleopScore());
+        }
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+
+        if (cryptoboxRef != null) {
+            cryptoboxRef.removeValue();
         }
     }
 

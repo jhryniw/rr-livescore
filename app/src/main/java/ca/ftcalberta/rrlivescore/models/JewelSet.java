@@ -55,4 +55,10 @@ public class JewelSet {
     public int getBlueScore() {
         return blueScore;
     }
+
+    public void reset() {
+        redIsOnPlatform = true;
+        blueIsOnPlatform = true;
+        updateScore();
+    }
 }
