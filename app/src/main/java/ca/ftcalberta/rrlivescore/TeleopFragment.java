@@ -1,8 +1,6 @@
 package ca.ftcalberta.rrlivescore;
 
 
-//import android.graphics.Color;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,18 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ca.ftcalberta.rrlivescore.data.ScoreButton;
 import ca.ftcalberta.rrlivescore.data.SyncedCryptobox;
-import ca.ftcalberta.rrlivescore.models.Alliance;
+import ca.ftcalberta.rrlivescore.data.SyncedRelic;
 import ca.ftcalberta.rrlivescore.models.Cryptobox;
 import ca.ftcalberta.rrlivescore.models.Glyph;
-import ca.ftcalberta.rrlivescore.models.Relic;
 import ca.ftcalberta.rrlivescore.models.OpMode;
 import ca.ftcalberta.rrlivescore.models.Settings;
 
@@ -31,7 +27,8 @@ public class TeleopFragment extends Fragment implements
         View.OnLongClickListener {
 
     private Cryptobox mCryptobox;
-    private Relic mRelic;
+    private SyncedRelic mRelic;
+    private ScoreButton scoreBalance;
     private boolean isBalanced;
 
     @BindView(R.id.glyph00) Button btnGlyph00;
@@ -71,7 +68,8 @@ public class TeleopFragment extends Fragment implements
 
         Settings appSettings = Settings.getInstance();
         this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.TELEOP, appSettings.getCryptoboxId());
-        this.mRelic = new Relic(appSettings.getAlliance());
+        this.mRelic = new SyncedRelic(appSettings.getAlliance());
+        this.scoreBalance = new ScoreButton("balance");
 
         ButterKnife.bind(this, view);
         btnGlyph00.setOnClickListener(this);
@@ -133,7 +131,6 @@ public class TeleopFragment extends Fragment implements
         }
         else if(zoneMatcher.matches()){
             int zone = Integer.parseInt(zoneMatcher.group(1));
-            boolean isUpright = mRelic.isUpright();
 
             btnZone1.setBackgroundResource(R.drawable.button_zone);
             btnZone2.setBackgroundResource(R.drawable.button_zone);
@@ -143,6 +140,7 @@ public class TeleopFragment extends Fragment implements
                 if (mRelic.isUpright()) {
                     mRelic.setUpright(false);
                     view.setBackgroundResource(R.drawable.button_zone);
+                    zone = 0;
                 } else {
                     mRelic.setUpright(true);
                     view.setBackgroundResource(R.drawable.relic_black);
@@ -159,7 +157,7 @@ public class TeleopFragment extends Fragment implements
                 view.setBackgroundResource(R.drawable.balance_blue);
             }
             isBalanced = !isBalanced;
-            //todo: add scoring for balance
+            scoreBalance.updateScore(tag, isBalanced ? 30: 0);
         }
     }
 
@@ -178,4 +176,6 @@ public class TeleopFragment extends Fragment implements
         }
         return false;
     }
+
+
 }
