@@ -5,6 +5,8 @@ public class Relic {
     private Alliance alliance;
     private boolean upright = false;
     public int zone = 0;
+    private int zoneScore;
+    private int uprightScore;
 
     public Relic(Alliance alliance) {
         this.alliance = alliance;
@@ -27,10 +29,41 @@ public class Relic {
     }
 
     public void setZone(int zone) {
+
         this.zone = zone;
+        uprightScore = isUpright() ? 15 : 0;
+
+        switch(zone) {
+            case 1:
+                zoneScore = 10;
+                break;
+            case 2:
+                zoneScore = 20;
+                break;
+            case 3:
+                zoneScore = 40;
+                break;
+            default:
+                zoneScore = 0;
+                uprightScore = 0;
+                break;
+        }
+
+        updateScore();
+
+    }
+
+    public int getZoneScore() {
+        return zoneScore;
+    }
+
+    public int getUprightScore() {
+        return uprightScore;
     }
 
     public int getScore() {
-        return 0;
+        return zoneScore + uprightScore;
     }
+
+    public void updateScore() {}
 }
