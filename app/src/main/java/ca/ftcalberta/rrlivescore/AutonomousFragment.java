@@ -72,8 +72,18 @@ public class AutonomousFragment extends Fragment implements
     @BindView(R.id.safe_zone)
     ImageButton btnSafeZone;
 
+    @BindView(R.id.key0)
+    ImageButton btnKey0;
+    @BindView(R.id.key1)
+    ImageButton btnKey1;
+    @BindView(R.id.key2)
+    ImageButton btnKey2;
+
     Pattern glyphPattern = Pattern.compile("^glyph(\\d)(\\d)$");
     Pattern jewelPattern = Pattern.compile("^jewel_(blue|red)$");
+    Pattern keyPattern = Pattern.compile("^key(\\d)$");
+
+    private ArrayList<ImageButton> keyButtons;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -123,6 +133,16 @@ public class AutonomousFragment extends Fragment implements
         btnSafeZone.setOnClickListener(this);
         btnSafeZone.setSelected(false);
 
+        keyButtons = new ArrayList<>(3);
+        keyButtons.add(btnKey0);
+        keyButtons.add(btnKey1);
+        keyButtons.add(btnKey2);
+        btnKey0.setSelected(true);
+
+        for(ImageButton keyButton : keyButtons) {
+            keyButton.setOnClickListener(this);
+        }
+
         return view;
     }
 
@@ -132,6 +152,7 @@ public class AutonomousFragment extends Fragment implements
 
         Matcher glyphMatcher = glyphPattern.matcher(tag);
         Matcher jewelMatcher = jewelPattern.matcher(tag);
+        Matcher keyMatcher = keyPattern.matcher(tag);
 
         if (glyphMatcher.matches() && mCryptobox != null) {
             int row = Integer.parseInt(glyphMatcher.group(1));
@@ -154,7 +175,20 @@ public class AutonomousFragment extends Fragment implements
             mJewelSet.toggleJewel(jewelAlliance);
             view.setSelected(!view.isSelected());
         }
-        else if(tag.equals("safe_zone")){
+        else if (keyMatcher.matches() && mCryptobox != null) {
+            int keyColumn = Integer.parseInt(keyMatcher.group(1));
+
+            if (mCryptobox.getKeyColumn() != keyColumn && !mCryptobox.isFirstGlyphPlaced()) {
+                ImageButton lastKey = keyButtons.get(mCryptobox.getKeyColumn());
+                if (lastKey != null) {
+                    lastKey.setSelected(false);
+                }
+
+                mCryptobox.setKeyColumn(keyColumn);
+                view.setSelected(true);
+            }
+        }
+        else if(tag.equals("safe_zone") && scoreSafeZone != null){
             safeZone = !safeZone;
             btnSafeZone.setSelected(!btnSafeZone.isSelected());
             scoreSafeZone.updateScore(tag, safeZone ? 10 : 0);
@@ -185,12 +219,14 @@ public class AutonomousFragment extends Fragment implements
             for (Button glyphButton : glyphButtons) {
                 glyphButton.setBackgroundResource(R.drawable.glyph_button);
             }
+
+            btnKey0.setSelected(true);
+            btnKey1.setSelected(false);
+            btnKey2.setSelected(false);
         }
 
         if (mJewelSet != null) {
             mJewelSet.reset();
-            btnRedJewel.setSelected(true);
-            btnRedJewel.setSelected(true);
         }
     }
 }
