@@ -23,14 +23,23 @@ public class SyncedRelic extends Relic {
         uprightRef = getRootRef("upright");
     }
 
+    @Override
+    public void setZone(int zone) {
+        super.setZone(zone);
+        relicRef.child("zone").setValue(getZone());
+    }
+
+    @Override
+    public void setUpright(boolean upright) {
+        super.setUpright(upright);
+        uprightRef.child("upright").setValue(isUpright());
+    }
 
     @Override
     public void updateScore() {
         super.updateScore();
 
-        relicRef.child("relic_zone").setValue(getZone());
         relicRef.child("score").setValue(getZoneScore());
-        uprightRef.child("relic_upright").setValue(isUpright());
         uprightRef.child("score").setValue(getUprightScore());
     }
 

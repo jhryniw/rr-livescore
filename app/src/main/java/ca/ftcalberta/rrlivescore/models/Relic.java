@@ -22,6 +22,7 @@ public class Relic {
 
     public void setUpright(boolean upright) {
         this.upright = upright;
+        updateScore();
     }
 
     public int getZone() {
@@ -29,8 +30,23 @@ public class Relic {
     }
 
     public void setZone(int zone) {
-
         this.zone = zone;
+        updateScore();
+    }
+
+    public int getZoneScore() {
+        return zoneScore;
+    }
+
+    public int getUprightScore() {
+        return uprightScore;
+    }
+
+    public int getScore() {
+        return zoneScore + uprightScore;
+    }
+
+    public void updateScore() {
         uprightScore = isUpright() ? 15 : 0;
 
         switch(zone) {
@@ -48,22 +64,5 @@ public class Relic {
                 uprightScore = 0;
                 break;
         }
-
-        updateScore();
-
     }
-
-    public int getZoneScore() {
-        return zoneScore;
-    }
-
-    public int getUprightScore() {
-        return uprightScore;
-    }
-
-    public int getScore() {
-        return zoneScore + uprightScore;
-    }
-
-    public void updateScore() {}
 }
