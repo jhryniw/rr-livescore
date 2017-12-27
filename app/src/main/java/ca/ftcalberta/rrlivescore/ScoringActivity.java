@@ -1,10 +1,13 @@
 package ca.ftcalberta.rrlivescore;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -140,11 +143,7 @@ public class ScoringActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_reset:
-                // TODO: Add confirmation dialog
-                if (viewPager.getCurrentItem() == TELE_FRAGMENT_ID) {
-                    viewPager.setCurrentItem(AUTO_FRAGMENT_ID);
-                }
-                reset();
+                confirmReset();
                 return true;
             case R.id.action_settings:
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
@@ -159,6 +158,33 @@ public class ScoringActivity extends AppCompatActivity implements
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    /**
+     * Confirm before resetting
+     */
+    private void confirmReset() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("Confirm Reset?");
+        alert.setMessage("You will lose the currently tracked state.");
+        alert.setPositiveButton("Reset", new Dialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (viewPager.getCurrentItem() == TELE_FRAGMENT_ID) {
+                    viewPager.setCurrentItem(AUTO_FRAGMENT_ID);
+                }
+                reset();
+                dialog.dismiss();
+            }
+        });
+        alert.setNegativeButton("Cancel", new Dialog.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
     }
 
     public void reset() {
