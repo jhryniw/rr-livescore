@@ -2,4 +2,5 @@
 <resources>
     <attr name="cryptobox_rail" format="reference" />
     <attr name="safe_zone" format="reference" />
+    <attr name="balance" format="reference" />
 </resources>
