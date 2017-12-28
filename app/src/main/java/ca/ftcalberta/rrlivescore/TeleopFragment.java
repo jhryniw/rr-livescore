@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 import ca.ftcalberta.rrlivescore.data.ScoreButton;
 import ca.ftcalberta.rrlivescore.data.SyncedCryptobox;
 import ca.ftcalberta.rrlivescore.data.SyncedRelic;
+import ca.ftcalberta.rrlivescore.models.Alliance;
 import ca.ftcalberta.rrlivescore.models.Cryptobox;
 import ca.ftcalberta.rrlivescore.models.Glyph;
 import ca.ftcalberta.rrlivescore.models.Relic;
@@ -108,6 +109,7 @@ public class TeleopFragment extends Fragment implements
     @Override
     public void onClick(View view) {
         String tag = (String)view.getTag();
+        Settings appSettings = Settings.getInstance();
 
         Matcher glyphMatcher = glyphPattern.matcher(tag);
         Matcher zoneMatcher = zonePattern.matcher(tag);
@@ -130,30 +132,29 @@ public class TeleopFragment extends Fragment implements
         }
         else if(zoneMatcher.matches()){
             int zone = Integer.parseInt(zoneMatcher.group(1));
-
             btnZone1.setBackgroundResource(R.drawable.button_zone);
             btnZone2.setBackgroundResource(R.drawable.button_zone);
             btnZone3.setBackgroundResource(R.drawable.button_zone);
 
-            if(mRelic.zone == zone) {
+            if(mRelic.getZone() == zone) {
                 if (mRelic.isUpright()) {
                     mRelic.setUpright(false);
                     view.setBackgroundResource(R.drawable.button_zone);
                     zone = 0;
                 } else {
                     mRelic.setUpright(true);
-                    view.setBackgroundResource(R.drawable.relic_black);
+                    view.setBackgroundResource(R.drawable.relic_upright);
                 }
             } else {
                 mRelic.setUpright(false);
-                view.setBackgroundResource(R.drawable.relic_black_tipped);
+                view.setBackgroundResource(R.drawable.relic_tipped);
             }
             mRelic.setZone(zone);
         } else if(tag.equals("balance")){
             if(isBalanced){
-                view.setBackgroundResource(R.drawable.no_balance_blue);
+                view.setBackgroundResource(appSettings.getAlliance() == Alliance.BLUE ? R.drawable.no_balance_blue1 :  R.drawable.no_balance_red1);
             } else {
-                view.setBackgroundResource(R.drawable.balance_blue);
+                view.setBackgroundResource(appSettings.getAlliance() == Alliance.BLUE ? R.drawable.balance_blue1 :  R.drawable.balance_red1);
             }
             isBalanced = !isBalanced;
             scoreBalance.updateScore(tag, isBalanced ? 30: 0);
@@ -185,5 +186,21 @@ public class TeleopFragment extends Fragment implements
                 glyphButton.setBackgroundResource(R.drawable.glyph_button);
             }
         }
+        if(mRelic != null){
+            mRelic.reset();
+
+            btnZone1.setBackgroundResource(R.drawable.button_zone);
+            btnZone2.setBackgroundResource(R.drawable.button_zone);
+            btnZone3.setBackgroundResource(R.drawable.button_zone);
+        }
+
+        Settings appSettings = Settings.getInstance();
+        isBalanced = false;
+        if (appSettings.getAlliance() == Alliance.BLUE) {
+            btnBalance.setBackgroundResource(R.drawable.no_balance_blue1);
+        } else {
+            btnBalance.setBackgroundResource(R.drawable.no_balance_red1);
+        }
+        appSettings.getAlliance();
     }
 }

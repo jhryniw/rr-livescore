@@ -227,6 +227,11 @@ public class AutonomousFragment extends Fragment implements
 
         if (mJewelSet != null) {
             mJewelSet.reset();
+            btnRedJewel.setSelected(true);
+            btnBlueJewel.setSelected(true);
         }
+
+        btnSafeZone.setSelected(false);
+
     }
 }
