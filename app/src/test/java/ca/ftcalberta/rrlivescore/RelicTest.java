@@ -44,9 +44,18 @@ public class RelicTest {
 
     @Test
     public void testUpright() throws Exception {
+        relic.setZone(1);
+        relic.setUpright(true);
+
+        assertEquals(15, relic.getUprightScore());
+        assertEquals(25, relic.getScore());
+    }
+
+    @Test
+    public void testUprightNotInZone() throws Exception {
         relic.setZone(0);
         relic.setUpright(true);
 
-        assertEquals(20, relic.getScore());
+        assertEquals(0, relic.getScore());
     }
 }

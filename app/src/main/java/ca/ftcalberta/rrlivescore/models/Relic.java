@@ -4,9 +4,9 @@ package ca.ftcalberta.rrlivescore.models;
 public class Relic {
     private Alliance alliance;
     private boolean upright = false;
-    public int zone = 0;
-    private int zoneScore;
-    private int uprightScore;
+    private int zone = 0;
+    private int zoneScore = 0;
+    private int uprightScore = 0;
 
     public Relic(Alliance alliance) {
         this.alliance = alliance;
@@ -22,6 +22,7 @@ public class Relic {
 
     public void setUpright(boolean upright) {
         this.upright = upright;
+        updateScore();
     }
 
     public int getZone() {
@@ -29,8 +30,23 @@ public class Relic {
     }
 
     public void setZone(int zone) {
-
         this.zone = zone;
+        updateScore();
+    }
+
+    public int getZoneScore() {
+        return zoneScore;
+    }
+
+    public int getUprightScore() {
+        return uprightScore;
+    }
+
+    public int getScore() {
+        return zoneScore + uprightScore;
+    }
+
+    public void updateScore() {
         uprightScore = isUpright() ? 15 : 0;
 
         switch(zone) {
@@ -48,22 +64,12 @@ public class Relic {
                 uprightScore = 0;
                 break;
         }
-
-        updateScore();
-
     }
 
-    public int getZoneScore() {
-        return zoneScore;
+    public void reset(){
+        zone = 0;
+        upright = false;
+        uprightScore = 0;
+        zoneScore = 0;
     }
-
-    public int getUprightScore() {
-        return uprightScore;
-    }
-
-    public int getScore() {
-        return zoneScore + uprightScore;
-    }
-
-    public void updateScore() {}
 }
