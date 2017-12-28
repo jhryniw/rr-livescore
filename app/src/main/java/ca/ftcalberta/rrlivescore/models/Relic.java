@@ -4,9 +4,9 @@ package ca.ftcalberta.rrlivescore.models;
 public class Relic {
     private Alliance alliance;
     private boolean upright = false;
-    public int zone = 0;
-    private int zoneScore;
-    private int uprightScore;
+    private int zone = 0;
+    private int zoneScore = 0;
+    private int uprightScore = 0;
 
     public Relic(Alliance alliance) {
         this.alliance = alliance;
@@ -64,5 +64,12 @@ public class Relic {
                 uprightScore = 0;
                 break;
         }
+    }
+
+    public void reset(){
+        zone = 0;
+        upright = false;
+        uprightScore = 0;
+        zoneScore = 0;
     }
 }
