@@ -15,6 +15,7 @@
 
         <item name="cryptobox_rail">@drawable/cryptobox_rail_blue</item>
         <item name="safe_zone">@drawable/button_safe_zone_blue</item>
+        <item name="balance">@drawable/button_balance_blue</item>
     </style>
 
     <style name="AppTheme.Red">
@@ -24,6 +25,7 @@
 
         <item name="cryptobox_rail">@drawable/cryptobox_rail_red</item>
         <item name="safe_zone">@drawable/button_safe_zone_red</item>
+        <item name="balance">@drawable/button_balance_red</item>
     </style>
 
 </resources>

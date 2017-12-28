@@ -151,12 +151,8 @@ public class TeleopFragment extends Fragment implements
             }
             mRelic.setZone(zone);
         } else if(tag.equals("balance")){
-            if(isBalanced){
-                view.setBackgroundResource(appSettings.getAlliance() == Alliance.BLUE ? R.drawable.no_balance_blue1 :  R.drawable.no_balance_red1);
-            } else {
-                view.setBackgroundResource(appSettings.getAlliance() == Alliance.BLUE ? R.drawable.balance_blue1 :  R.drawable.balance_red1);
-            }
             isBalanced = !isBalanced;
+            view.setSelected(!view.isSelected());
             scoreBalance.updateScore(tag, isBalanced ? 30: 0);
         }
     }
@@ -194,13 +190,7 @@ public class TeleopFragment extends Fragment implements
             btnZone3.setBackgroundResource(R.drawable.button_zone);
         }
 
-        Settings appSettings = Settings.getInstance();
         isBalanced = false;
-        if (appSettings.getAlliance() == Alliance.BLUE) {
-            btnBalance.setBackgroundResource(R.drawable.no_balance_blue1);
-        } else {
-            btnBalance.setBackgroundResource(R.drawable.no_balance_red1);
-        }
-        appSettings.getAlliance();
+        btnBalance.setSelected(false);
     }
 }

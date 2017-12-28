@@ -34,7 +34,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/no_balance_blue1"
+        app:srcCompat="?balance"
         android:background="@android:color/transparent"
         android:contentDescription="@string/balance_button"
         android:tag="balance"
