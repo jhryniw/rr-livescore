@@ -96,7 +96,7 @@ public class AutonomousFragment extends Fragment implements
         Settings appSettings = Settings.getInstance();
         this.mCryptobox = new SyncedCryptobox(appSettings.getAlliance(), OpMode.AUTONOMOUS, appSettings.getCryptoboxId());
         this.mJewelSet = new SyncedJewelSet(appSettings.getAlliance(), appSettings.getCryptoboxId());
-        this.scoreSafeZone = new ScoreButton("safe_zone");
+        this.scoreSafeZone = new ScoreButton("safeZone");
     }
 
     @Nullable
@@ -190,8 +190,8 @@ public class AutonomousFragment extends Fragment implements
         }
         else if(tag.equals("safe_zone") && scoreSafeZone != null){
             safeZone = !safeZone;
-            btnSafeZone.setSelected(!btnSafeZone.isSelected());
-            scoreSafeZone.updateScore(tag, safeZone ? 10 : 0);
+            btnSafeZone.setSelected(safeZone);//!btnSafeZone.isSelected());
+            scoreSafeZone.updateScore(safeZone ? 10 : 0);
         }
     }
 
@@ -232,6 +232,7 @@ public class AutonomousFragment extends Fragment implements
         }
 
         btnSafeZone.setSelected(false);
+        scoreSafeZone.reset();
 
     }
 }

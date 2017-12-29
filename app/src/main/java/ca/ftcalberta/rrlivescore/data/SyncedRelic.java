@@ -13,7 +13,6 @@ public class SyncedRelic extends Relic {
 
     private DatabaseReference relicRef;
     private DatabaseReference uprightRef;
-    private int relicId;
 
 
     public SyncedRelic(Alliance alliance)
@@ -43,6 +42,14 @@ public class SyncedRelic extends Relic {
         uprightRef.child("score").setValue(getUprightScore());
     }
 
+    @Override
+    public void reset(){
+        super.reset();
+
+        relicRef.removeValue();
+        uprightRef.removeValue();
+    }
+
 
     private DatabaseReference getRootRef(String type) {
         int id = Settings.getInstance().getCryptoboxId();
@@ -55,7 +62,7 @@ public class SyncedRelic extends Relic {
         else {
             strId = "front";
         }
-        String root = String.format(Locale.CANADA, "%s-%s-%s", type, strAlliance,  strId);
+        String root = String.format(Locale.CANADA, "%s/%s/%s", strAlliance,  strId, type);
 
         return FirebaseUtil.getCurrentMatchReference().child(root);
     }

@@ -17,8 +17,12 @@ public class ScoreButton {
         buttonRef = getRootRef(buttonTag);
     }
 
-    public void updateScore(String buttonTag, int value){
+    public void updateScore(int value){
         buttonRef.child("score").setValue(value);
+    }
+
+    public void reset(){
+        buttonRef.removeValue();
     }
 
     private DatabaseReference getRootRef(String buttonTag) {
@@ -33,7 +37,7 @@ public class ScoreButton {
             strId = "front";
         }
 
-        String root = String.format(Locale.CANADA, "%s-%s-%s",buttonTag, strAlliance,  strId);
+        String root = String.format(Locale.CANADA, "%s/%s/%s",strAlliance,  strId, buttonTag);
 
         return FirebaseUtil.getCurrentMatchReference().child(root);
     }

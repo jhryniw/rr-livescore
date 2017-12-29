@@ -50,6 +50,11 @@ public class Cryptobox {
 
     private int autonomousScore = 0;
     private int teleopScore = 0;
+    private int autonomousGlyphScore = 0;
+    private int teleopGlyphScore = 0;
+    private int rowBonus = 0;
+    private int colBonus = 0;
+    private int cipherBonus = 0;
 
     public Cryptobox(Alliance alliance) {
         this.alliance = alliance;
@@ -120,12 +125,13 @@ public class Cryptobox {
 
     protected void updateScore() {
         int glyphCount = getGlyphCount();
-        int autonomousGlyphScore = glyphCount * GLYPH_AUTONOMOUS_SCORE;
-        int teleopGlyphScore = glyphCount * GLYPH_TELEOP_SCORE;
 
-        int rowBonus = getCompleteRows() * ROW_BONUS;
-        int colBonus = getCompleteColumns() * COL_BONUS;
-        int cipherBonus = isCipherComplete() ? CIPHER_BONUS : 0;
+        autonomousGlyphScore = glyphCount * GLYPH_AUTONOMOUS_SCORE;
+        teleopGlyphScore = glyphCount * GLYPH_TELEOP_SCORE;
+
+        rowBonus = getCompleteRows() * ROW_BONUS;
+        colBonus = getCompleteColumns() * COL_BONUS;
+        cipherBonus = isCipherComplete() ? CIPHER_BONUS : 0;
 
         autonomousScore = autonomousGlyphScore + keyColumnBonus;
         teleopScore = teleopGlyphScore + rowBonus + colBonus + cipherBonus;
@@ -185,6 +191,31 @@ public class Cryptobox {
     public int getTeleopScore() {
         return teleopScore;
     }
+
+    public int getAutonomousGlyphScore() {
+        return autonomousGlyphScore;
+    }
+
+    public int getKeyColumnBonus() {
+        return keyColumnBonus;
+    }
+
+    public int getTeleopGlyphScore() {
+        return teleopGlyphScore;
+    }
+
+    public int getRowBonus() {
+        return rowBonus;
+    }
+
+    public int getColBonus() {
+        return colBonus;
+    }
+
+    public int getCipherBonus() {
+        return cipherBonus;
+    }
+
 
     private boolean rowIsFull(int row) {
         for (int i = 0; i < COLS; i++) {

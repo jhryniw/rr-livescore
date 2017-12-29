@@ -153,7 +153,7 @@ public class TeleopFragment extends Fragment implements
         } else if(tag.equals("balance")){
             isBalanced = !isBalanced;
             view.setSelected(!view.isSelected());
-            scoreBalance.updateScore(tag, isBalanced ? 30: 0);
+            scoreBalance.updateScore(isBalanced ? 30: 0);
         }
     }
 
@@ -192,5 +192,6 @@ public class TeleopFragment extends Fragment implements
 
         isBalanced = false;
         btnBalance.setSelected(false);
+        scoreBalance.reset();
     }
 }
