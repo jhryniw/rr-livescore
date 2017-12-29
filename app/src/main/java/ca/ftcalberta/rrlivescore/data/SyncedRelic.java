@@ -13,7 +13,6 @@ public class SyncedRelic extends Relic {
 
     private DatabaseReference relicRef;
     private DatabaseReference uprightRef;
-    private int relicId;
 
 
     public SyncedRelic(Alliance alliance)
@@ -41,6 +40,14 @@ public class SyncedRelic extends Relic {
 
         relicRef.child("score").setValue(getZoneScore());
         uprightRef.child("score").setValue(getUprightScore());
+    }
+
+    @Override
+    public void reset(){
+        super.reset();
+
+        relicRef.removeValue();
+        uprightRef.removeValue();
     }
 
 

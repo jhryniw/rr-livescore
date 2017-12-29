@@ -17,8 +17,12 @@ public class ScoreButton {
         buttonRef = getRootRef(buttonTag);
     }
 
-    public void updateScore(String buttonTag, int value){
+    public void updateScore(int value){
         buttonRef.child("score").setValue(value);
+    }
+
+    public void reset(){
+        buttonRef.removeValue();
     }
 
     private DatabaseReference getRootRef(String buttonTag) {

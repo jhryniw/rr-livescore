@@ -41,11 +41,7 @@ public class SyncedJewelSet extends JewelSet {
     public void reset() {
         super.reset();
 
-        jewelSetRef.child(getJewelId(Alliance.BLUE))
-                .setValue(isOnPlatform(Alliance.BLUE));
-
-        jewelSetRef.child(getJewelId(Alliance.RED))
-                .setValue(isOnPlatform(Alliance.RED));
+        jewelSetRef.removeValue();
     }
 
     private DatabaseReference getRootRef() {
