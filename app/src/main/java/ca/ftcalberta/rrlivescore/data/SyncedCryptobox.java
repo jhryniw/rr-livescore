@@ -84,12 +84,12 @@ public class SyncedCryptobox extends Cryptobox {
             strId = "front";
         }
 
-        String root = String.format(Locale.CANADA, "cryptobox-%s-%s-%s", strAlliance, strOpmode, strId);
+        String root = String.format(Locale.CANADA, "/%s/%s/%sCryptobox", strAlliance, strId, strOpmode);
 
         return FirebaseUtil.getCurrentMatchReference().child(root);
     }
 
     private String getGlyphId(int row, int col) {
-        return String.format(Locale.CANADA, "glyph-%d%d", row, col);
+        return String.format(Locale.CANADA, "glyph%d%d", row, col);
     }
 }

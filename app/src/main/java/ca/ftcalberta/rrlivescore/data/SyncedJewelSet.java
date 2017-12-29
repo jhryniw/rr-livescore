@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import ca.ftcalberta.rrlivescore.models.Alliance;
 import ca.ftcalberta.rrlivescore.models.JewelSet;
+import ca.ftcalberta.rrlivescore.models.Settings;
 
 
 public class SyncedJewelSet extends JewelSet {
@@ -32,8 +33,8 @@ public class SyncedJewelSet extends JewelSet {
     protected void updateScore() {
         super.updateScore();
 
-        jewelSetRef.child("blue-score").setValue(getBlueScore());
-        jewelSetRef.child("red-score").setValue(getRedScore());
+        jewelSetRef.child("blueScore").setValue(getBlueScore());
+        jewelSetRef.child("redScore").setValue(getRedScore());
     }
 
     @Override
@@ -48,7 +49,18 @@ public class SyncedJewelSet extends JewelSet {
     }
 
     private DatabaseReference getRootRef() {
-        String root = String.format(Locale.CANADA, "jewelset-%d", jewelSetId);
+        int id = Settings.getInstance().getCryptoboxId();
+        String strAlliance = Settings.getInstance().getAlliance().toString().toLowerCase();
+
+        String strId;
+        if (id == Settings.CRYPTOBOX_BACK) {
+            strId = "back";
+        }
+        else {
+            strId = "front";
+        }
+        String root = String.format(Locale.CANADA, "%s/%s/jewel", strAlliance,  strId);
+
         return FirebaseUtil.getCurrentMatchReference().child(root);
     }
 

@@ -55,7 +55,7 @@ public class SyncedRelic extends Relic {
         else {
             strId = "front";
         }
-        String root = String.format(Locale.CANADA, "%s-%s-%s", type, strAlliance,  strId);
+        String root = String.format(Locale.CANADA, "%s/%s/%s", strAlliance,  strId, type);
 
         return FirebaseUtil.getCurrentMatchReference().child(root);
     }

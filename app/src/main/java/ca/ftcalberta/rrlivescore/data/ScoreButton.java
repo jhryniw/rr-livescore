@@ -33,7 +33,7 @@ public class ScoreButton {
             strId = "front";
         }
 
-        String root = String.format(Locale.CANADA, "%s-%s-%s",buttonTag, strAlliance,  strId);
+        String root = String.format(Locale.CANADA, "%s/%s/%s",strAlliance,  strId, buttonTag);
 
         return FirebaseUtil.getCurrentMatchReference().child(root);
     }
