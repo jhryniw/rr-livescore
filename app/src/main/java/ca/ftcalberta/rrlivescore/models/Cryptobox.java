@@ -16,6 +16,7 @@ public class Cryptobox {
 
     private static final Glyph grayGlyph = new Glyph(Glyph.Color.GRAY);
     private static final Glyph brownGlyph = new Glyph(Glyph.Color.BROWN);
+    private static final Glyph yellowGlyph = new Glyph(Glyph.Color.YELLOW);
 
     private static final Glyph[][] frogCipher = new Glyph[][]
             {
@@ -120,6 +121,11 @@ public class Cryptobox {
         updateScore();
     }
 
+    public void addPartialGlyph(int row, int col) {
+        box[row][col] = new Glyph(Glyph.Color.YELLOW);
+        updateScore();
+    }
+
     public void removeGlyph(int row, int col) {
         box[row][col] = null;
         updateScore();
@@ -150,7 +156,7 @@ public class Cryptobox {
         int count = 0;
         for(int i = 0; i < ROWS; i++) {
             for(int j = 0; j < COLS; j++) {
-                if (getGlyph(i, j) != null) count++;
+                if (getGlyph(i, j) != null && getGlyph(i,j).getColor() != Glyph.Color.YELLOW) count++;
             }
         }
         return count;
@@ -249,7 +255,7 @@ public class Cryptobox {
 
     private boolean colIsFull(int col) {
         for (int i = 0; i < ROWS; i++) {
-            if(getGlyph(i, col) == null) return false;
+            if(getGlyph(i, col) == null || getGlyph(i,col).getColor() == Glyph.Color.YELLOW) return false;
         }
         return true;
     }
@@ -259,6 +265,15 @@ public class Cryptobox {
         isFirstGlyph = true;
         keyColumnBonus = 0;
         keyColumnCount = 0;
+        glyphCount = 0;
+        autonomousGlyphScore = 0;
+        teleopGlyphScore = 0;
+        rowBonus = 0;
+        colBonus = 0;
+        cipherBonus = 0;
+        rowCount = 0;
+        colCount = 0;
+        cipherCount = 0;
 
         for (int i = 0; i < ROWS; i++) {
             box[i] = new Glyph[COLS];

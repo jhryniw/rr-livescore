@@ -6,7 +6,8 @@ import android.support.annotation.NonNull;
 public class Glyph {
     public enum Color {
         GRAY,
-        BROWN
+        BROWN,
+        YELLOW
     }
 
     @NonNull

@@ -98,5 +98,6 @@ public class Relic {
         zone1Count = 0;
         zone2Count = 0;
         zone3Count = 0;
+        updateScore();
     }
 }
