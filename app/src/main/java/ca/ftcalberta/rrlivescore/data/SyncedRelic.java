@@ -39,7 +39,11 @@ public class SyncedRelic extends Relic {
         super.updateScore();
 
         relicRef.child("score").setValue(getZoneScore());
+        relicRef.child("zone1Count").setValue(getZone1Count());
+        relicRef.child("zone2Count").setValue(getZone2Count());
+        relicRef.child("zone3Count").setValue(getZone3Count());
         uprightRef.child("score").setValue(getUprightScore());
+        uprightRef.child("count").setValue(getUprightCount());
     }
 
     @Override

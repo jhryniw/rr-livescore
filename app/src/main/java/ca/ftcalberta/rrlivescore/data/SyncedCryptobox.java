@@ -55,17 +55,24 @@ public class SyncedCryptobox extends Cryptobox {
     protected void updateScore() {
         super.updateScore();
 
+
         if (opMode == OpMode.AUTONOMOUS) {
             cryptoboxRef.child("autonomousGlyphScore").setValue(getAutonomousGlyphScore());
+            cryptoboxRef.child("autonomousGlyphCount").setValue(getGlyphCount());
             cryptoboxRef.child("keyColumnBonus").setValue(getKeyColumnBonus());
+            cryptoboxRef.child("keyColumnCount").setValue(getKeyColumnCount());
             cryptoboxRef.child("score").setValue(getAutonomousScore());
         }
         else {
             cryptoboxRef.child("score").setValue(getTeleopScore());
             cryptoboxRef.child("teleopGlyphScore").setValue(getTeleopGlyphScore());
+            cryptoboxRef.child("teleopGlyphCount").setValue(getGlyphCount());
             cryptoboxRef.child("rowBonus").setValue(getRowBonus());
             cryptoboxRef.child("colBonus").setValue(getColBonus());
             cryptoboxRef.child("cipherBonus").setValue(getCipherBonus());
+            cryptoboxRef.child("colCount").setValue(getColCount());
+            cryptoboxRef.child("rowCount").setValue(getRowCount());
+            cryptoboxRef.child("cipherCount").setValue(getCipherCount());
         }
     }
 

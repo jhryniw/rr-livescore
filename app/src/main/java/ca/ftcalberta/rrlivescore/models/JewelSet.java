@@ -10,6 +10,8 @@ public class JewelSet {
 
     private int redScore = 0;
     private int blueScore = 0;
+    private int redCount = 0;
+    private int blueCount = 0;
 
     public JewelSet() {
         redIsOnPlatform = true;
@@ -46,6 +48,8 @@ public class JewelSet {
     protected void updateScore() {
         redScore = redIsOnPlatform && !blueIsOnPlatform ? JEWEL_SCORE : 0;
         blueScore = blueIsOnPlatform && !redIsOnPlatform ? JEWEL_SCORE : 0;
+        redCount = redIsOnPlatform && !blueIsOnPlatform ? 1 : 0;
+        blueCount = blueIsOnPlatform && !redIsOnPlatform ? 1 : 0;
     }
 
     public int getRedScore() {
@@ -54,6 +58,15 @@ public class JewelSet {
 
     public int getBlueScore() {
         return blueScore;
+    }
+
+
+    public int getRedCount() {
+        return redCount;
+    }
+
+    public int getBlueCount() {
+        return blueCount;
     }
 
     public void reset() {
