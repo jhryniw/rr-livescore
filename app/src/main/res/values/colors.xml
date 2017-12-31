@@ -19,6 +19,7 @@
 
     <color name="glyphGray">@color/gray600Light</color>
     <color name="glyphBrown">#996060</color>
+    <color name="glyphYellow">#66feea2a</color>
     <color name="glyphNone">@android:color/white</color>
 
     <color name="relicYellow">#feea2a</color>

@@ -231,6 +231,7 @@ public class AutonomousFragment extends Fragment implements
             btnBlueJewel.setSelected(true);
         }
 
+        safeZone = false;
         btnSafeZone.setSelected(false);
         scoreSafeZone.reset();
 

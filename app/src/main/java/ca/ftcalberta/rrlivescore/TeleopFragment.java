@@ -166,8 +166,14 @@ public class TeleopFragment extends Fragment implements
             int row = Integer.parseInt(glyphMatcher.group(1));
             int col = Integer.parseInt(glyphMatcher.group(2));
 
-            mCryptobox.removeGlyph(row, col);
-            view.setBackgroundResource(R.drawable.glyph_button);
+            if(mCryptobox.getGlyph(row, col) == null){
+                int color = getResources().getColor(R.color.glyphYellow);
+                view.setBackgroundColor(color);
+                mCryptobox.addGlyph(row, col, Glyph.Color.YELLOW);
+            } else {
+                mCryptobox.removeGlyph(row, col);
+                view.setBackgroundResource(R.drawable.glyph_button);
+            }
             return true;
         }
         return false;

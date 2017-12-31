@@ -52,6 +52,54 @@ public class CryptoboxTest {
     }
 
     @Test
+    public void testPartialGlyphRowCount() throws Exception {
+        // Start from an empty box
+        cryptobox = new Cryptobox(Alliance.BLUE);
+
+        cryptobox.addGlyph(0, 0, Glyph.Color.BROWN);
+        cryptobox.addGlyph(0, 1, Glyph.Color.GRAY);
+        cryptobox.addGlyph(0, 2, Glyph.Color.BROWN);
+        cryptobox.addGlyph(1, 0, Glyph.Color.GRAY);
+        cryptobox.addGlyph(1, 1, Glyph.Color.GRAY);
+
+        // only one row
+        assertEquals(1, cryptobox.getRowCount());
+        assertEquals(5, cryptobox.getGlyphCount());
+
+        // only one row
+        cryptobox.addPartialGlyph(1, 2);
+        assertEquals(2, cryptobox.getRowCount());
+        assertEquals(5, cryptobox.getGlyphCount());
+    }
+
+    @Test
+    public void testPartialGlyphColumnCount() throws Exception {
+        // Start from an empty box
+        cryptobox = new Cryptobox(Alliance.BLUE);
+
+        cryptobox.addGlyph(0, 0, Glyph.Color.BROWN);
+        cryptobox.addGlyph(0, 1, Glyph.Color.GRAY);
+        cryptobox.addGlyph(0, 2, Glyph.Color.BROWN);
+        cryptobox.addGlyph(1, 0, Glyph.Color.BROWN);
+        cryptobox.addGlyph(1, 1, Glyph.Color.GRAY);
+        cryptobox.addGlyph(1, 2, Glyph.Color.BROWN);
+        cryptobox.addGlyph(2, 0, Glyph.Color.BROWN);
+        cryptobox.addGlyph(2, 1, Glyph.Color.GRAY);
+        cryptobox.addGlyph(2, 2, Glyph.Color.BROWN);
+        cryptobox.addGlyph(3, 0, Glyph.Color.BROWN);
+        cryptobox.addGlyph(3, 1, Glyph.Color.GRAY);
+
+        // only one row
+        assertEquals(2, cryptobox.getColCount());
+        assertEquals(11, cryptobox.getGlyphCount());
+
+        // only one row
+        cryptobox.addPartialGlyph(3, 2);
+        assertEquals(2, cryptobox.getColCount());
+        assertEquals(11, cryptobox.getGlyphCount());
+    }
+
+    @Test
     public void testGlyphCountTeleop() throws Exception {
         assertEquals(8, cryptobox.getGlyphCount());
 
