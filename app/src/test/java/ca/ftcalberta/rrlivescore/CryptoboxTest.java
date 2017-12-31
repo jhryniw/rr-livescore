@@ -99,6 +99,7 @@ public class CryptoboxTest {
         cryptobox.addGlyph(0, 1, Glyph.Color.GRAY);
 
         // key column + glyph score
+        assertEquals(1, cryptobox.getKeyColumnCount());
         assertEquals(45, cryptobox.getAutonomousScore());
     }
 
@@ -112,6 +113,31 @@ public class CryptoboxTest {
         cryptobox.addGlyph(0, 0, Glyph.Color.GRAY);
 
         // No key column score, only points for glyphs
+        assertEquals(0, cryptobox.getKeyColumnCount());
+        assertEquals(30, cryptobox.getAutonomousScore());
+    }
+
+    @Test
+    public void testKeyColumnWithReset() throws Exception {
+        // Start from an empty box
+        cryptobox = new Cryptobox(Alliance.BLUE);
+        cryptobox.setKeyColumn(1);
+
+        cryptobox.addGlyph(0, 1, Glyph.Color.GRAY);
+
+        // key column + glyph score
+        assertEquals(1, cryptobox.getKeyColumnCount());
+        assertEquals(45, cryptobox.getAutonomousScore());
+
+        cryptobox.reset();
+
+        cryptobox.setKeyColumn(0);
+
+        cryptobox.addGlyph(0, 1, Glyph.Color.BROWN);
+        cryptobox.addGlyph(0, 0, Glyph.Color.GRAY);
+
+        // No key column score, only points for glyphs
+        assertEquals(0, cryptobox.getKeyColumnCount());
         assertEquals(30, cryptobox.getAutonomousScore());
     }
 

@@ -35,6 +35,8 @@ public class SyncedJewelSet extends JewelSet {
 
         jewelSetRef.child("blueScore").setValue(getBlueScore());
         jewelSetRef.child("redScore").setValue(getRedScore());
+        jewelSetRef.child("blueCount").setValue(getBlueCount());
+        jewelSetRef.child("redCount").setValue(getRedCount());
     }
 
     @Override

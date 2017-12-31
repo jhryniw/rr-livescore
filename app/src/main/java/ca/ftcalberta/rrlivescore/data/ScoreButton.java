@@ -18,7 +18,9 @@ public class ScoreButton {
     }
 
     public void updateScore(int value){
+
         buttonRef.child("score").setValue(value);
+        buttonRef.child("count").setValue(value == 0 ? 0 : 1);
     }
 
     public void reset(){

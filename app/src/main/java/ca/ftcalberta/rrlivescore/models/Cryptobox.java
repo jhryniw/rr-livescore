@@ -47,7 +47,9 @@ public class Cryptobox {
 
     private boolean isFirstGlyph = true;
     private int keyColumnBonus = 0;
+    private int keyColumnCount = 0;
 
+    private int glyphCount = 0;
     private int autonomousScore = 0;
     private int teleopScore = 0;
     private int autonomousGlyphScore = 0;
@@ -55,6 +57,9 @@ public class Cryptobox {
     private int rowBonus = 0;
     private int colBonus = 0;
     private int cipherBonus = 0;
+    private int rowCount = 0;
+    private int colCount = 0;
+    private int cipherCount = 0;
 
     public Cryptobox(Alliance alliance) {
         this.alliance = alliance;
@@ -106,6 +111,7 @@ public class Cryptobox {
         if (isFirstGlyph) {
             if (col == keyColumn) {
                 keyColumnBonus = KEY_COLUMN_BONUS;
+                keyColumnCount = 1;
             }
             isFirstGlyph = false;
         }
@@ -124,20 +130,23 @@ public class Cryptobox {
     }
 
     protected void updateScore() {
-        int glyphCount = getGlyphCount();
+        glyphCount = getTotalGlyphCount();
 
         autonomousGlyphScore = glyphCount * GLYPH_AUTONOMOUS_SCORE;
         teleopGlyphScore = glyphCount * GLYPH_TELEOP_SCORE;
 
-        rowBonus = getCompleteRows() * ROW_BONUS;
-        colBonus = getCompleteColumns() * COL_BONUS;
-        cipherBonus = isCipherComplete() ? CIPHER_BONUS : 0;
+        rowCount = getCompleteRows();
+        rowBonus = rowCount * ROW_BONUS;
+        colCount = getCompleteColumns();
+        colBonus = colCount * COL_BONUS;
+        cipherCount = isCipherComplete() ? 1 : 0;
+        cipherBonus = cipherCount * CIPHER_BONUS;
 
         autonomousScore = autonomousGlyphScore + keyColumnBonus;
         teleopScore = teleopGlyphScore + rowBonus + colBonus + cipherBonus;
     }
 
-    public int getGlyphCount() {
+    public int getTotalGlyphCount() {
         int count = 0;
         for(int i = 0; i < ROWS; i++) {
             for(int j = 0; j < COLS; j++) {
@@ -164,7 +173,7 @@ public class Cryptobox {
     }
 
     public boolean isCipherComplete() {
-        if (getGlyphCount() != ROWS * COLS) return false;
+        if (getTotalGlyphCount() != ROWS * COLS) return false;
 
         return equalsCipher(frogCipher) ||
                 equalsCipher(birdCipher) ||
@@ -192,12 +201,17 @@ public class Cryptobox {
         return teleopScore;
     }
 
+    public int getGlyphCount() { return glyphCount;}
+
     public int getAutonomousGlyphScore() {
         return autonomousGlyphScore;
     }
 
     public int getKeyColumnBonus() {
         return keyColumnBonus;
+    }
+    public int getKeyColumnCount() {
+        return keyColumnCount;
     }
 
     public int getTeleopGlyphScore() {
@@ -207,13 +221,22 @@ public class Cryptobox {
     public int getRowBonus() {
         return rowBonus;
     }
+    public int getRowCount() {
+        return rowCount;
+    }
 
     public int getColBonus() {
         return colBonus;
     }
+    public int getColCount() {
+        return colCount;
+    }
 
     public int getCipherBonus() {
         return cipherBonus;
+    }
+    public int getCipherCount() {
+        return cipherCount;
     }
 
 
@@ -234,6 +257,8 @@ public class Cryptobox {
     public void reset() {
         keyColumn = 0;
         isFirstGlyph = true;
+        keyColumnBonus = 0;
+        keyColumnCount = 0;
 
         for (int i = 0; i < ROWS; i++) {
             box[i] = new Glyph[COLS];
