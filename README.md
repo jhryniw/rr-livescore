@@ -52,11 +52,15 @@ These bonuses are tracked **automatically**. Simply place the glyphs in the cryp
 Notes:
 * These bonuses are determined based on the teleop cryptobox state, not the autonomous one.
 
-#### Relic `Teleop`
+#### Relic Recovery `Teleop`
 Pressing a relic mat zone (1-3) scores the relic in that respective zone. Further presses toggle whether the relic is upright or not. Long-pressing descores the relic. Each scorekeeper is responsible for scoring the relic placed in their quarter of the field (ex blue-back) **at the start of the match**. 
 
 #### Robot Balance `Teleop`
 Pressing toggles the balanced state. Each scorekeeper tracks their respective balancing stone.
+
+## Troubleshooting
+#### "Authentication Failed"
+The Google Play drivers are likely out of date. Update them on the `Google Play Store` to restore function. 
 
 ## Contribution Guidelines
 Contributions are welcome. If you'd like to contribute, fork this repository and submit a pull request. All changes should pass existing unit/instrumentation tests and new features should be accompanied by additional testing.
