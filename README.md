@@ -13,18 +13,68 @@ hosted at [livescoring.ftcalberta.ca](livescoring.ftcalberta.ca) with source cod
 ## Usage Guide
 In a competition scenario, **four phones** are intended to be running the app simulataneously. Ideally, each phone should be held by a seperate scorekeeper, responsible for one quarter of the field. 
 
+<img
+    src="/docs/settings.png"
+    width="160"
+    title="Settings"
+    align="right"
+    alt="Settings Screen"/>
 ### Settings
-The settings page allows the scorekeeper to identify themselves to the system. This is determined by alliance color and cryptobox id. The alliance color can be either _red_ or _blue_ and the cryptobox id can be either _front_ or _back_. A "front" cryptobox is defined as the cryptoboxes of each alliance color nearest their respective Relic Recovery mats.
+The settings page, accessed via the overflow menu at the top right of the main screen, allows the scorekeeper to identify themselves to the system. This is determined by alliance color and cryptobox id. The alliance color can be either _red_ or _blue_ and the cryptobox id can be either _front_ or _back_. A "front" cryptobox is defined as the cryptoboxes of each alliance color nearest their respective Relic Recovery mats.
 
 **Important:** Every scorekeeper must have a **unique** alliance-cryptobox id combination 
 
 ### Scoring
-Scoring is split into two modes: `Autonomous` mode and `Teleop` mode. You can switch between modes by swiping left or right or using the navigation bar at the bottom of the main screen.
+Scoring is split into two modes: `Autonomous` mode and `Teleop` mode. You can switch between modes by swiping left or right or using the navigation bar at the bottom of the main screen. To reset the score, press the refresh icon in the app bar.
 
+<p align="center">
+    <img
+        src="/docs/autonomous.png"
+        width="240"
+        title="Autonomous"
+        alt="Autonomous Screen"/>
+    <img
+        src="/docs/teleop.png"
+        width="240"
+        title="Teleop"
+        alt="Teleop Screen"/>
+</p>
+    
 #### Placing Glyphs `Autonomous` `Teleop`
 Glyphs are placed by clicking the square buttons inside the cryptobox in either autonomous or teleop mode. When clicked again, the color alternates between gray and brown. Long-clicking a scored glyph de-scores that glyph.
 
-In teleop mode, long clicking an un-scored glyph produces a "ghost" glyph. Ghost glyphs do not count towards the glyph score, but can create row bonuses.
+<p align="center">
+    <img
+        src="/docs/clear_glyph.png"
+        width="80"
+        title="Clear Glyph"
+        alt="Clear Glyph"/>
+    <img
+        src="/docs/gray_glyph.png"
+        width="83"
+        title="Gray Glyph"
+        alt="Gray Glyph"/>
+    <img
+        src="/docs/brown_glyph.png"
+        width="83"
+        title="Brown Glyph"
+        alt="Brown Glyph"/>
+    <img
+        src="/docs/ghost_glyph.png"
+        width="79"
+        title="Ghost Glyph"
+        alt="Ghost Glyph"/>
+</div>
+
+In teleop mode, long clicking an un-scored glyph produces a "ghost" glyph. Ghost glyphs do not count towards the glyph score, but can create row bonuses. In the following screenshot, blue counts 6 glyphs and has **2 row bonuses**.
+
+<p align="center">
+    <img
+            src="/docs/ghost_row.png"
+            width="240"
+            title="Ghost Row"
+            alt="Ghost Row"/>
+</p>
 
 Notes:
 * The two scoring modes are independent. Glyphs scored in autonomous must be re-placed in teleop when the game period changes.
@@ -40,11 +90,32 @@ Notes:
 #### Jewet Set `Autonomous`
 The jewels are meant to be scored by matching the state of the jewels on the field. Pressing a jewel toggles its presence.
 
+<p align="center">
+    <img
+            src="/docs/jewel_set.png"
+            height="85"
+            title="Jewel Set"
+            alt="Jewel Set"/>
+</p>
+
 Notes:
 * This is the only type of scoring that can score for the other team. Consider this if transferring the score to the official scoresheets.
 
 #### Robot Parking `Autonomous`
 Pressing toggles the parked state -- no robot icon means not parked.
+
+<p align="center">
+    <img
+            src="/docs/nopark.png"
+            height="85"
+            title="No Park"
+            alt="No Park"/>
+    <img
+            src="/docs/park.png"
+            height="85"
+            title="Park"
+            alt="Park"/>
+</p>
 
 #### Row, Column and Cipher Bonuses `Teleop`
 These bonuses are tracked **automatically**. Simply place the glyphs in the cryptobox as you see them.
@@ -55,8 +126,29 @@ Notes:
 #### Relic Recovery `Teleop`
 Pressing a relic mat zone (1-3) scores the relic in that respective zone. Further presses toggle whether the relic is upright or not. Long-pressing descores the relic. Each scorekeeper is responsible for scoring the relic placed in their quarter of the field (ex blue-back) **at the start of the match**. 
 
+<p align="center">
+    <img
+            src="/docs/relic.png"
+            height="85"
+            title="Relic"
+            alt="Relic"/>
+</p>
+
 #### Robot Balance `Teleop`
 Pressing toggles the balanced state. Each scorekeeper tracks their respective balancing stone.
+
+<p align="center">
+    <img
+            src="/docs/nobalance.png"
+            height="85"
+            title="No Balance"
+            alt="No Balance"/>
+    <img
+            src="/docs/balance.png"
+            height="85"
+            title="Balance"
+            alt="Balance"/>
+</p>
 
 ## Troubleshooting
 #### "Authentication Failed"
